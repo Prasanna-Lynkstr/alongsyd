@@ -6,6 +6,20 @@ import { createClient } from "@/engine/supabase/server";
 import { deriveTags } from "@/engine/tagging";
 import { embed, toVectorLiteral } from "@/engine/embeddings";
 import { sendPushToUser } from "@/engine/push";
+import { FEED_PAGE_SIZE, listQuestions } from "@/engine/queries";
+import type { Question } from "@/engine/types";
+
+/** Next page of the browse feed (keyset "load more"). */
+export async function fetchMoreQuestions(
+  filter: { condition?: string; topic?: string },
+  before: string,
+): Promise<Question[]> {
+  return listQuestions(
+    { condition: filter.condition, topic: filter.topic },
+    FEED_PAGE_SIZE,
+    before,
+  );
+}
 
 /** Post a new question. Auto-tags from the parent's inputs + profile defaults. */
 export async function postQuestion(formData: FormData) {

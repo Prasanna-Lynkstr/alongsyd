@@ -6,6 +6,7 @@ import SearchBar from "@/components/SearchBar";
 import FeedFilters from "@/components/FeedFilters";
 import SearchFacets, { type Facets } from "@/components/SearchFacets";
 import QuestionCard from "@/components/QuestionCard";
+import QuestionFeed from "@/components/QuestionFeed";
 import PushOptIn from "@/components/PushOptIn";
 import { EmptyState } from "@/components/ui";
 
@@ -96,12 +97,15 @@ export default async function AskPage({
               Clear the filter, or be the first to ask.
             </EmptyState>
           )
-        ) : (
+        ) : searching ? (
+          // Search results are already bounded/ranked — no pagination needed.
           questions.map((question) => (
             <div key={question.id} className="animate-in">
               <QuestionCard question={question} />
             </div>
           ))
+        ) : (
+          <QuestionFeed initial={questions} condition={condition} topic={topic} />
         )}
       </div>
     </div>

@@ -43,9 +43,18 @@ export type FeedFilter = {
 };
 
 /** Feed: newest questions first, optionally filtered by a tag. */
+/** Page size for the browse feed's keyset "load more" pagination. */
+export const FEED_PAGE_SIZE = 20;
+
 export async function listQuestions(
   filter: FeedFilter = {},
-  limit = 50,
+  limit = FEED_PAGE_SIZE,
+  /**
+   * Keyset cursor: return only questions strictly older than this created_at
+   * (ISO string). Uses the created_at index — no deep OFFSET scans, so page 500
+   * is as cheap as page 1.
+   */
+  before?: string,
 ): Promise<Question[]> {
   const supabase = await createClient();
   let q = supabase
@@ -58,6 +67,7 @@ export async function listQuestions(
   if (filter.condition) q = q.eq("condition", filter.condition);
   if (filter.ageBand) q = q.eq("age_band", filter.ageBand);
   if (filter.topic) q = q.eq("topic", filter.topic);
+  if (before) q = q.lt("created_at", before);
 
   const { data, error } = await q;
   if (error) throw error;

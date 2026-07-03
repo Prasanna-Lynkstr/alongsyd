@@ -228,7 +228,8 @@ language sql stable security definer set search_path = public as $$
       )
     )
   order by ts_rank(ques.search_tsv, (select tsq from q)) desc,
-           ques.created_at desc;
+           ques.created_at desc
+  limit 50;
 $$;
 
 -- ===========================================================================
