@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { requireOnboardedProfile } from "@/engine/auth";
-import { getAnswers, getQuestion } from "@/engine/queries";
+import { findRelatedQuestions, getAnswers, getQuestion } from "@/engine/queries";
 import {
   ageBandLabel,
   conditionIcon,
@@ -13,27 +13,53 @@ import { AuthorTag, Chip, timeAgo } from "@/components/ui";
 import HelpfulButton from "@/components/HelpfulButton";
 import ReportButton from "@/components/ReportButton";
 import AnswerComposer from "@/components/AnswerComposer";
+import QuestionCard from "@/components/QuestionCard";
+import PushOptIn from "@/components/PushOptIn";
 
 export const dynamic = "force-dynamic";
 
 export default async function QuestionPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ id: string }>;
+  searchParams: Promise<{ posted?: string }>;
 }) {
   await requireOnboardedProfile();
   const { id } = await params;
+  const { posted } = await searchParams;
 
   const question = await getQuestion(id);
   if (!question || question.isRemoved) notFound();
 
   const answers = await getAnswers(id);
+  // When nothing's answered yet, don't leave the parent staring at a void —
+  // surface similar questions the community has already engaged with.
+  const related =
+    answers.length === 0
+      ? await findRelatedQuestions(question.title, question.id)
+      : [];
 
   return (
     <div className="mx-auto max-w-2xl space-y-5">
       <Link href="/ask" className="text-sm text-muted">
         ← Community
       </Link>
+
+      {posted && (
+        <div className="space-y-3 rounded-2xl border border-teal/30 bg-teal-soft/40 p-4">
+          <div>
+            <p className="font-semibold text-teal-strong">
+              Your question is live 🌱
+            </p>
+            <p className="mt-0.5 text-sm text-muted">
+              Parents who&apos;ve been here will start weighing in. We&apos;ll
+              notify you the moment someone answers.
+            </p>
+          </div>
+          <PushOptIn />
+        </div>
+      )}
 
       {/* Question */}
       <article className="rounded-2xl border border-line bg-surface p-5">
@@ -105,6 +131,18 @@ export default async function QuestionPage({
           </article>
         ))}
       </section>
+
+      {/* No answers yet → point to questions the community has already tackled. */}
+      {answers.length === 0 && related.length > 0 && (
+        <section className="space-y-3">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-faint">
+            While you wait — similar questions
+          </h2>
+          {related.map((r) => (
+            <QuestionCard key={r.id} question={r} />
+          ))}
+        </section>
+      )}
 
       {/* Compose */}
       <section className="space-y-2">

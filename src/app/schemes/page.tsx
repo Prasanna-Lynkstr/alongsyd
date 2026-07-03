@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Brand from "@/components/Brand";
+import BottomNav from "@/components/BottomNav";
 import SchemeChecker from "@/components/SchemeChecker";
 import SchemeCard from "@/components/SchemeCard";
 import FlagScheme from "@/components/FlagScheme";
@@ -12,14 +13,14 @@ import {
 import { conditionLabel, stateLabel } from "@/config/taxonomy";
 import { COUNTRY } from "@/config/country";
 import { isSupabaseConfigured } from "@/engine/supabase/env";
-import { getUser } from "@/engine/auth";
+import { getProfile } from "@/engine/auth";
 import { listSchemeNotes } from "@/engine/queries";
-import type { SchemeNote } from "@/engine/types";
+import type { Profile, SchemeNote } from "@/engine/types";
 
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Check what you're entitled to",
+  title: "Benefits",
 };
 
 export default async function SchemesPage({
@@ -27,8 +28,32 @@ export default async function SchemesPage({
 }: {
   searchParams: Promise<{ condition?: string; age?: string; state?: string }>;
 }) {
-  const { condition, age, state } = await searchParams;
-  const hasQuery = Boolean(condition || age || state);
+  const { condition: qCond, age: qAge, state: qState } = await searchParams;
+  const explicit = Boolean(qCond || qAge || qState);
+
+  // Signed-in state + profile (best-effort — the baseline still shows if not).
+  let signedIn = false;
+  let profile: Profile | null = null;
+  if (isSupabaseConfigured) {
+    profile = await getProfile();
+    signedIn = Boolean(profile);
+  }
+
+  // The app already knows this child — so when the parent hasn't typed a query,
+  // pre-fill and auto-match from their profile instead of showing a blank form.
+  const usingProfile =
+    !explicit &&
+    Boolean(
+      profile && (profile.condition || profile.childAge != null || profile.state),
+    );
+  const condition = explicit ? (qCond ?? "") : usingProfile ? (profile!.condition ?? "") : "";
+  const age = explicit
+    ? (qAge ?? "")
+    : usingProfile && profile!.childAge != null
+      ? String(profile!.childAge)
+      : "";
+  const state = explicit ? (qState ?? "") : usingProfile ? (profile!.state ?? "") : "";
+  const hasQuery = explicit || usingProfile;
 
   const ageNum = age ? Number(age) : null;
   const matches = hasQuery
@@ -39,11 +64,8 @@ export default async function SchemesPage({
       })
     : [];
 
-  // Signed-in state + crowd notes (best-effort — baseline still shows if not).
-  let signedIn = false;
   const notesByScheme: Record<string, SchemeNote[]> = {};
   if (isSupabaseConfigured) {
-    signedIn = Boolean(await getUser());
     await Promise.all(
       matches.map(async (s) => {
         try {
@@ -56,7 +78,7 @@ export default async function SchemesPage({
   }
 
   return (
-    <main className="mx-auto min-h-screen max-w-xl px-4 pb-16">
+    <main className="mx-auto min-h-screen max-w-xl px-4 pb-24">
       {/* Public header */}
       <header className="flex items-center justify-between py-3">
         <Brand size="sm" withTagline href={signedIn ? "/ask" : null} />
@@ -78,12 +100,14 @@ export default async function SchemesPage({
         </p>
       </div>
 
+      {usingProfile && (
+        <p className="mt-4 rounded-xl border border-teal/30 bg-teal-soft/40 px-4 py-2.5 text-sm text-teal-strong">
+          ✨ Matched to your child&apos;s profile. Adjust below to explore more.
+        </p>
+      )}
+
       <div className="mt-5">
-        <SchemeChecker
-          condition={condition ?? ""}
-          age={age ?? ""}
-          state={state ?? ""}
-        />
+        <SchemeChecker condition={condition} age={age} state={state} />
       </div>
 
       {hasQuery && (
@@ -157,6 +181,9 @@ export default async function SchemesPage({
           Pick a condition, age, or state above to begin.
         </p>
       )}
+
+      {/* Signed-in parents keep the app tab bar here (no dead-end on mobile). */}
+      {signedIn && <BottomNav isAdmin={profile?.isAdmin ?? false} />}
     </main>
   );
 }

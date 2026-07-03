@@ -11,11 +11,21 @@ import type { Question } from "@/engine/types";
 
 /** Next page of the browse feed (keyset "load more"). */
 export async function fetchMoreQuestions(
-  filter: { condition?: string; topic?: string },
+  filter: {
+    condition?: string;
+    topic?: string;
+    state?: string;
+    unanswered?: boolean;
+  },
   before: string,
 ): Promise<Question[]> {
   return listQuestions(
-    { condition: filter.condition, topic: filter.topic },
+    {
+      condition: filter.condition,
+      topic: filter.topic,
+      state: filter.state,
+      unanswered: filter.unanswered,
+    },
     FEED_PAGE_SIZE,
     before,
   );
@@ -80,7 +90,7 @@ export async function postQuestion(formData: FormData) {
   if (error) redirect(`/ask/new?error=${encodeURIComponent(error.message)}`);
 
   revalidatePath("/ask");
-  redirect(`/ask/${data!.id}`);
+  redirect(`/ask/${data!.id}?posted=1`);
 }
 
 /** Post an answer to a question. */
@@ -147,6 +157,27 @@ export async function toggleHelpful(answerId: string, questionId: string) {
     await supabase
       .from("helpful_votes")
       .insert({ answer_id: answerId, user_id: user.id });
+
+    // Tell the answer's author their words helped someone — the supply side of
+    // the community gets almost no feedback otherwise. Best-effort; never self.
+    const { data: answer } = await supabase
+      .from("answers")
+      .select("author_id")
+      .eq("id", answerId)
+      .maybeSingle();
+    if (answer?.author_id && answer.author_id !== user.id) {
+      const { data: q } = await supabase
+        .from("questions")
+        .select("title")
+        .eq("id", questionId)
+        .maybeSingle();
+      await sendPushToUser(answer.author_id, {
+        title: "Your answer helped a parent 💚",
+        body: q?.title ?? "A parent found your answer helpful.",
+        url: `/ask/${questionId}`,
+        tag: `helpful-${answerId}`,
+      });
+    }
   }
 
   revalidatePath(`/ask/${questionId}`);

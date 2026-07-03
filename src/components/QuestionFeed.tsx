@@ -16,10 +16,14 @@ export default function QuestionFeed({
   initial,
   condition,
   topic,
+  state,
+  unanswered,
 }: {
   initial: Question[];
   condition?: string;
   topic?: string;
+  state?: string;
+  unanswered?: boolean;
 }) {
   const [items, setItems] = useState<Question[]>(initial);
   const [done, setDone] = useState(initial.length < PAGE_SIZE);
@@ -29,7 +33,10 @@ export default function QuestionFeed({
     const last = items[items.length - 1];
     if (!last) return;
     startTransition(async () => {
-      const more = await fetchMoreQuestions({ condition, topic }, last.createdAt);
+      const more = await fetchMoreQuestions(
+        { condition, topic, state, unanswered },
+        last.createdAt,
+      );
       setItems((prev) => [...prev, ...more]);
       if (more.length < PAGE_SIZE) setDone(true);
     });

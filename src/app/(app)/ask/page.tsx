@@ -4,10 +4,12 @@ import { listQuestions, searchQuestions } from "@/engine/queries";
 import type { Question } from "@/engine/types";
 import SearchBar from "@/components/SearchBar";
 import FeedFilters from "@/components/FeedFilters";
+import FeedViews, { type FeedView } from "@/components/FeedViews";
 import SearchFacets, { type Facets } from "@/components/SearchFacets";
 import QuestionCard from "@/components/QuestionCard";
 import QuestionFeed from "@/components/QuestionFeed";
 import PushOptIn from "@/components/PushOptIn";
+import InstallPrompt from "@/components/InstallPrompt";
 import { EmptyState } from "@/components/ui";
 
 export const dynamic = "force-dynamic";
@@ -32,15 +34,24 @@ export default async function AskPage({
     condition?: string;
     city?: string;
     topic?: string;
+    view?: string;
   }>;
 }) {
-  await requireOnboardedProfile();
-  const { q, condition, city, topic } = await searchParams;
+  const profile = await requireOnboardedProfile();
+  const { q, condition, city, topic, view: viewParam } = await searchParams;
 
   const searching = Boolean(q && q.trim());
+  const view: FeedView =
+    viewParam === "unanswered"
+      ? "unanswered"
+      : viewParam === "near"
+        ? "near"
+        : "latest";
+  const nearState = view === "near" ? (profile.state ?? undefined) : undefined;
+  const unanswered = view === "unanswered";
 
   // Search: get the full reranked set, derive facets from it, then hard-filter
-  // by any active chips. Feed: filter by the feed's own condition/topic chips.
+  // by any active chips. Feed: filter by the feed's own view + condition/topic.
   const allResults = searching ? await searchQuestions(q!) : [];
   const facets = searching ? facetsFrom(allResults) : { conditions: [], cities: [], topics: [] };
   const questions = searching
@@ -50,7 +61,7 @@ export default async function AskPage({
           (!city || r.city === city) &&
           (!topic || r.topic === topic),
       )
-    : await listQuestions({ condition, topic });
+    : await listQuestions({ condition, topic, state: nearState, unanswered });
 
   return (
     <div className="mx-auto w-full max-w-4xl space-y-4">
@@ -63,6 +74,15 @@ export default async function AskPage({
 
       <SearchBar initial={q ?? ""} />
 
+      {!searching && (
+        <FeedViews
+          view={view}
+          condition={condition}
+          topic={topic}
+          hasRegion={Boolean(profile.state)}
+        />
+      )}
+
       {/* On desktop this splits into a feed column + a sticky context rail; on
           mobile the grid collapses and DOM order restores the phone stack
           (filters → prompt → feed). */}
@@ -74,6 +94,7 @@ export default async function AskPage({
             <SearchFacets q={q!} facets={facets} active={{ condition, city, topic }} />
           )}
 
+          {!searching && <InstallPrompt />}
           {!searching && <PushOptIn />}
 
           <Link
@@ -98,6 +119,16 @@ export default async function AskPage({
                 Clear a filter above, try different words, or ask it yourself and
                 let the community help.
               </EmptyState>
+            ) : unanswered ? (
+              <EmptyState title="Every question has an answer 🎉">
+                Nothing here needs help right now. Check back soon, or ask your
+                own.
+              </EmptyState>
+            ) : view === "near" ? (
+              <EmptyState title="Nothing from your area yet">
+                Be the first parent near you to ask — others in your region will
+                find it here.
+              </EmptyState>
             ) : (
               <EmptyState title="Nothing here with this filter">
                 Clear the filter, or be the first to ask.
@@ -111,7 +142,13 @@ export default async function AskPage({
               </div>
             ))
           ) : (
-            <QuestionFeed initial={questions} condition={condition} topic={topic} />
+            <QuestionFeed
+              initial={questions}
+              condition={condition}
+              topic={topic}
+              state={nearState}
+              unanswered={unanswered}
+            />
           )}
         </div>
       </div>

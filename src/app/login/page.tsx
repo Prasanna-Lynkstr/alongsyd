@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Brand from "@/components/Brand";
 import { createClient } from "@/engine/supabase/client";
@@ -13,6 +13,17 @@ type Mode = "email" | "phone";
 
 export default function LoginPage() {
   const [mode, setMode] = useState<Mode>("email");
+  const [linkError, setLinkError] = useState(false);
+
+  useEffect(() => {
+    // Deferred (not a synchronous effect-body setState) to avoid cascading
+    // renders on mount; the value only exists client-side anyway.
+    queueMicrotask(() => {
+      if (new URLSearchParams(window.location.search).get("error")) {
+        setLinkError(true);
+      }
+    });
+  }, []);
 
   return (
     <main className="mx-auto flex min-h-screen max-w-md flex-col justify-center px-6 py-12">
@@ -24,6 +35,13 @@ export default function LoginPage() {
           that&apos;s your identity here. Share, ask, and lean on each other.
         </p>
       </div>
+
+      {linkError && (
+        <p className="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+          That sign-in link didn&apos;t work — it may have expired or already
+          been used. Enter your email below to get a fresh one.
+        </p>
+      )}
 
       {!isSupabaseConfigured && (
         <p className="mb-4 rounded-lg bg-amber-soft px-4 py-3 text-sm text-amber">

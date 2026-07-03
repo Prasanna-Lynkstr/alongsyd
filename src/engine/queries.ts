@@ -40,6 +40,10 @@ export type FeedFilter = {
   condition?: string;
   ageBand?: string;
   topic?: string;
+  /** "Near you": restrict to a region code. */
+  state?: string;
+  /** "Needs answers": only questions with no answers yet. */
+  unanswered?: boolean;
 };
 
 /** Feed: newest questions first, optionally filtered by a tag. */
@@ -67,6 +71,8 @@ export async function listQuestions(
   if (filter.condition) q = q.eq("condition", filter.condition);
   if (filter.ageBand) q = q.eq("age_band", filter.ageBand);
   if (filter.topic) q = q.eq("topic", filter.topic);
+  if (filter.state) q = q.eq("state", filter.state);
+  if (filter.unanswered) q = q.eq("answer_count", 0);
   if (before) q = q.lt("created_at", before);
 
   const { data, error } = await q;
@@ -129,6 +135,102 @@ export async function searchQuestions(query: string): Promise<Question[]> {
 
   // Rerank by similarity + structured-tag boosts (location, condition, topic).
   return rerank(trimmed, [...byId.values()]);
+}
+
+/** The signed-in parent's own questions, newest first. */
+export async function listMyQuestions(
+  userId: string,
+  limit = 20,
+): Promise<Question[]> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("questions")
+    .select(QUESTION_SELECT)
+    .eq("author_id", userId)
+    .eq("is_removed", false)
+    .order("created_at", { ascending: false })
+    .limit(limit);
+  if (error) throw error;
+  return (data ?? []).map(toQuestion);
+}
+
+export type MyAnswer = {
+  id: string;
+  body: string;
+  helpedCount: number;
+  createdAt: string;
+  question: { id: string; title: string } | null;
+};
+
+/** The parent's own answers, newest first, each linked back to its question. */
+export async function listMyAnswers(
+  userId: string,
+  limit = 20,
+): Promise<MyAnswer[]> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("answers")
+    .select(
+      "id, body, helped_count, created_at, question:questions!answers_question_id_fkey(id, title)",
+    )
+    .eq("author_id", userId)
+    .eq("is_removed", false)
+    .order("created_at", { ascending: false })
+    .limit(limit);
+  if (error) throw error;
+  return ((data ?? []) as Row[]).map((r) => {
+    const q = r.question as Row | null;
+    return {
+      id: r.id as string,
+      body: r.body as string,
+      helpedCount: (r.helped_count as number) ?? 0,
+      createdAt: (r.created_at as string) ?? "",
+      question: q ? { id: q.id as string, title: q.title as string } : null,
+    };
+  });
+}
+
+/** Contribution tallies for the profile page: questions asked, answers given,
+ *  and total "this helped" marks received across the parent's answers. */
+export async function getContributionStats(userId: string): Promise<{
+  asked: number;
+  answered: number;
+  helped: number;
+}> {
+  const supabase = await createClient();
+  const [asked, answers] = await Promise.all([
+    supabase
+      .from("questions")
+      .select("id", { count: "exact", head: true })
+      .eq("author_id", userId)
+      .eq("is_removed", false),
+    supabase
+      .from("answers")
+      .select("helped_count")
+      .eq("author_id", userId)
+      .eq("is_removed", false),
+  ]);
+  const rows = (answers.data ?? []) as Row[];
+  return {
+    asked: asked.count ?? 0,
+    answered: rows.length,
+    helped: rows.reduce((sum, a) => sum + ((a.helped_count as number) ?? 0), 0),
+  };
+}
+
+/**
+ * Questions related to a given one — so a freshly-posted question that no one
+ * has answered yet isn't a dead end. Reuses the hybrid search over the title,
+ * minus the question itself.
+ */
+export async function findRelatedQuestions(
+  title: string,
+  excludeId: string,
+  limit = 3,
+): Promise<Question[]> {
+  if (!title.trim()) return [];
+  const results = await searchQuestions(title);
+  return results.filter((q) => q.id !== excludeId).slice(0, limit);
 }
 
 export async function getQuestion(id: string): Promise<Question | null> {

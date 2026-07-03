@@ -1,17 +1,28 @@
 import Link from "next/link";
 import { requireOnboardedProfile } from "@/engine/auth";
 import {
+  getContributionStats,
+  listMyAnswers,
+  listMyQuestions,
+} from "@/engine/queries";
+import {
   ageBandLabel,
   conditionLabel,
   stateLabel,
 } from "@/config/taxonomy";
 import { ageToBand } from "@/config/taxonomy";
 import { VerifiedBadge } from "@/components/ui";
+import QuestionCard from "@/components/QuestionCard";
 import PushOptIn from "@/components/PushOptIn";
 import { signOut } from "./actions";
 
 export default async function MePage() {
   const profile = await requireOnboardedProfile();
+  const [stats, myQuestions, myAnswers] = await Promise.all([
+    getContributionStats(profile.id),
+    listMyQuestions(profile.id, 5),
+    listMyAnswers(profile.id, 5),
+  ]);
 
   return (
     <div className="mx-auto max-w-2xl space-y-6">
@@ -29,6 +40,12 @@ export default async function MePage() {
           </span>
         )}
       </div>
+
+      <section className="grid grid-cols-3 gap-3">
+        <Stat label="Asked" value={stats.asked} />
+        <Stat label="Answered" value={stats.answered} />
+        <Stat label="Helped" value={stats.helped} />
+      </section>
 
       <section className="rounded-2xl border border-line bg-surface p-4">
         <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-faint">
@@ -65,6 +82,44 @@ export default async function MePage() {
           way that identifies you or your family.
         </p>
       </section>
+
+      {myQuestions.length > 0 && (
+        <section className="space-y-2">
+          <p className="text-xs font-semibold uppercase tracking-wide text-faint">
+            Your questions
+          </p>
+          <div className="space-y-2">
+            {myQuestions.map((q) => (
+              <QuestionCard key={q.id} question={q} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {myAnswers.length > 0 && (
+        <section className="space-y-2">
+          <p className="text-xs font-semibold uppercase tracking-wide text-faint">
+            Your answers
+          </p>
+          <div className="space-y-2">
+            {myAnswers.map((a) => (
+              <Link
+                key={a.id}
+                href={a.question ? `/ask/${a.question.id}` : "/ask"}
+                className="block rounded-2xl border border-line bg-surface p-4"
+              >
+                <p className="text-sm text-ink">
+                  {a.body.length > 140 ? `${a.body.slice(0, 140)}…` : a.body}
+                </p>
+                <p className="mt-1.5 text-xs text-faint">
+                  on “{a.question?.title ?? "a question"}”
+                  {a.helpedCount > 0 && ` · ${a.helpedCount} found it helpful`}
+                </p>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       <section className="rounded-2xl border border-line bg-surface p-4">
         <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-faint">
@@ -108,6 +163,15 @@ function Row({ label, value }: { label: string; value: string }) {
     <div className="flex justify-between gap-4">
       <dt className="text-muted">{label}</dt>
       <dd className="font-medium text-ink">{value}</dd>
+    </div>
+  );
+}
+
+function Stat({ label, value }: { label: string; value: number }) {
+  return (
+    <div className="rounded-2xl border border-line bg-surface px-3 py-4 text-center">
+      <p className="text-2xl font-semibold text-ink">{value}</p>
+      <p className="mt-0.5 text-xs text-muted">{label}</p>
     </div>
   );
 }

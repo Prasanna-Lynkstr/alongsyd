@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Brand from "@/components/Brand";
 import { AVATARS, CONDITIONS, STATES } from "@/config/taxonomy";
 import { COUNTRY } from "@/config/country";
@@ -8,6 +8,15 @@ import { saveProfile } from "../actions";
 
 export default function ProfileSetupPage() {
   const [avatar, setAvatar] = useState<string>(AVATARS[0]);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    queueMicrotask(() => {
+      const e = new URLSearchParams(window.location.search).get("error");
+      if (e === "alias") setError("Please choose an alias other parents will see.");
+      else if (e) setError("That didn't save — that alias may be taken. Try another.");
+    });
+  }, []);
 
   return (
     <main className="mx-auto min-h-screen max-w-md px-6 py-10">
@@ -19,6 +28,12 @@ export default function ProfileSetupPage() {
         No real names — yours or your child&apos;s. Pick a friendly avatar and an
         alias other parents will see.
       </p>
+
+      {error && (
+        <p className="mt-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+          {error}
+        </p>
+      )}
 
       <form action={saveProfile} className="mt-8 space-y-6">
         {/* Avatar picker */}
@@ -55,9 +70,13 @@ export default function ProfileSetupPage() {
         </Field>
 
         <div className="rounded-xl bg-cream p-4">
-          <p className="text-sm font-medium text-ink">About your child</p>
+          <p className="text-sm font-medium text-ink">
+            About your child{" "}
+            <span className="font-normal text-faint">(optional)</span>
+          </p>
           <p className="mt-0.5 text-xs text-muted">
-            We only ever store age + condition — never a name.
+            Helps us tailor answers and benefits — you can add or change it
+            anytime. We only ever store age + condition, never a name.
           </p>
 
           <div className="mt-4 space-y-4">
