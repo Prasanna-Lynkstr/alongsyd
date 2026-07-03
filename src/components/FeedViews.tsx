@@ -39,12 +39,12 @@ export default function FeedViews({
   ];
 
   return (
-    <div className="flex rounded-full bg-cream p-1 text-sm font-medium">
+    <div className="flex rounded-full bg-cream p-1 text-xs font-medium sm:text-sm">
       {tabs.map((t) => (
         <button
           key={t.key}
           onClick={() => go(t.key)}
-          className={`flex-1 whitespace-nowrap rounded-full py-1.5 transition ${
+          className={`min-w-0 flex-1 whitespace-nowrap rounded-full px-1 py-1.5 transition ${
             view === t.key ? "bg-surface text-teal-strong shadow-sm" : "text-muted"
           }`}
         >

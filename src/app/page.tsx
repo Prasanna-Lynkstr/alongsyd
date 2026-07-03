@@ -8,6 +8,20 @@ import { isSupabaseConfigured } from "@/engine/supabase/env";
 
 export const dynamic = "force-dynamic";
 
+/** What's live today — the two things a parent can do right now. */
+const LIVE = [
+  {
+    icon: "💬",
+    title: "Ask & get answers",
+    body: "Real questions, answered by parents who solved the same thing.",
+  },
+  {
+    icon: "🗂️",
+    title: "Know your entitlements",
+    body: "A plain-language guide to schemes and benefits. No sign-in.",
+  },
+];
+
 /** Front door. Signed-in parents skip straight into the app; everyone else
  *  meets the framing and can either sign in or check benefits without login. */
 export default async function Home() {
@@ -16,62 +30,72 @@ export default async function Home() {
   }
 
   return (
-    <main className="mx-auto min-h-screen max-w-md px-6 py-10">
-      <Brand size="md" href={null} />
-
-      <h1 className="mt-10 text-3xl font-semibold leading-tight text-ink">
-        Alongside you, the whole way.
-      </h1>
-
-      <div className="mt-4 space-y-4 text-[15px] leading-relaxed text-muted">
-        <p>
-          Raising a child with special needs means facing new questions at every
-          stage — from the first diagnosis to school, to adulthood, and to the
-          question every parent carries quietly: who cares for them after us.
+    <main className="mx-auto flex min-h-screen w-full max-w-md flex-col px-6 py-10 md:max-w-2xl">
+      {/* Hero */}
+      <header className="flex flex-col items-center text-center">
+        <Brand size="md" href={null} />
+        <h1 className="mt-8 text-3xl font-semibold leading-tight text-ink md:text-4xl">
+          Alongside you,
+          <br />
+          <span className="text-teal-strong">the whole way.</span>
+        </h1>
+        <p className="mt-3 max-w-sm text-[15px] leading-relaxed text-muted">
+          Real answers from parents who&apos;ve been there — and everything your
+          child is entitled to.
         </p>
-        <p>
-          Alongsyd is being built to walk that whole journey with you. Over time,
-          it will support you at each stage with what you actually need —
-          therapists and schools in your city, planning for the years ahead,
-          options for after-us, and the hard-won wisdom of parents who&apos;ve
-          been there.
-        </p>
-        <p>
-          We&apos;re starting with the thing parents ask for most: a place to ask
-          questions and get real answers from others who understand.{" "}
-          <b className="font-semibold text-ink">That&apos;s live today.</b> More
-          will follow, shaped by what helps you most.
-        </p>
-        <p>
-          And it gets smarter as it grows. Every question and answer, once
-          anonymised, builds a shared intelligence — so the guidance becomes more
-          accurate, more local, and more useful for the next parent, and the
-          next.
-        </p>
-        <p className="font-medium text-ink">This is just the beginning.</p>
-      </div>
 
-      <div className="mt-8 space-y-3">
-        <Link
-          href="/login"
-          className="block rounded-xl bg-teal py-3.5 text-center font-semibold text-surface"
-        >
-          Ask your first question
-        </Link>
-        <Link
-          href="/schemes"
-          className="block text-center text-sm font-medium text-teal-strong"
-        >
-          Or check what you&apos;re entitled to — no sign-in
-        </Link>
-      </div>
+        <div className="mt-7 flex w-full max-w-xs flex-col gap-3">
+          <Link
+            href="/login"
+            className="rounded-xl bg-teal py-3.5 text-center font-semibold text-surface"
+          >
+            Ask your first question
+          </Link>
+          <Link
+            href="/schemes"
+            className="text-center text-sm font-medium text-teal-strong"
+          >
+            Check benefits — no sign-in →
+          </Link>
+        </div>
+      </header>
 
-      <div className="mt-10 rounded-2xl border border-line bg-surface p-4">
+      {/* What's live today */}
+      <section className="mt-12 grid gap-3 sm:grid-cols-2">
+        {LIVE.map((v) => (
+          <div
+            key={v.title}
+            className="rounded-2xl border border-line bg-surface p-4"
+          >
+            <div className="flex items-center justify-between">
+              <span
+                className="grid h-10 w-10 place-items-center rounded-xl bg-teal-soft text-xl"
+                aria-hidden
+              >
+                {v.icon}
+              </span>
+              <span className="rounded-full bg-teal-soft px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-teal-strong">
+                Live
+              </span>
+            </div>
+            <p className="mt-3 font-semibold text-ink">{v.title}</p>
+            <p className="mt-1 text-sm leading-relaxed text-muted">{v.body}</p>
+          </div>
+        ))}
+      </section>
+
+      {/* Where it's headed */}
+      <section className="mt-4 rounded-2xl border border-line bg-surface p-4">
         <p className="mb-4 text-center text-xs font-medium text-muted">
-          What Alongsyd will grow to support — together, over time
+          Growing to walk the whole journey — together, over time
         </p>
         <JourneyStrip />
-      </div>
+      </section>
+
+      <p className="mt-8 text-center text-sm text-muted">
+        <span aria-hidden>🔒</span> Anonymous by design — and smarter every time
+        one parent helps another.
+      </p>
 
       <SiteFooter />
     </main>

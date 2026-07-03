@@ -40,7 +40,7 @@ export default function ProfileSetupPage() {
         <div>
           <label className="mb-2 block text-sm font-medium text-ink">Avatar</label>
           <input type="hidden" name="avatar" value={avatar} />
-          <div className="grid grid-cols-8 gap-2">
+          <div className="grid grid-cols-6 gap-2 sm:grid-cols-8">
             {AVATARS.map((a) => (
               <button
                 type="button"
