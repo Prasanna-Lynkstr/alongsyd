@@ -22,7 +22,7 @@ export default function ProfileSetupPage() {
     <main className="mx-auto min-h-screen max-w-md px-6 py-10">
       <Brand size="md" href={null} />
       <h1 className="mt-8 text-2xl font-semibold text-ink">
-        Choose a safe second identity
+        Choose how you&apos;ll appear
       </h1>
       <p className="mt-2 text-sm text-muted">
         No real names — yours or your child&apos;s. Pick a friendly avatar and an

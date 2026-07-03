@@ -3,7 +3,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/engine/supabase/server";
 
-/** Save the safe second identity + child context, then move to consent. */
+/** Save the safe second identity + child context, then show the welcome. */
 export async function saveProfile(formData: FormData) {
   const supabase = await createClient();
   const {
@@ -32,10 +32,11 @@ export async function saveProfile(formData: FormData) {
   });
   if (error) redirect(`/onboarding/profile?error=${encodeURIComponent(error.message)}`);
 
-  redirect("/onboarding/consent");
+  redirect("/onboarding/welcome");
 }
 
-/** Record consent, then show the one-time welcome. */
+/** Record consent (the first onboarding step), then collect the profile. Upsert
+ *  because the profile row may not exist yet — consent now comes before it. */
 export async function giveConsent() {
   const supabase = await createClient();
   const {
@@ -45,10 +46,9 @@ export async function giveConsent() {
 
   await supabase
     .from("profiles")
-    .update({ consented_at: new Date().toISOString() })
-    .eq("id", user.id);
+    .upsert({ id: user.id, consented_at: new Date().toISOString() });
 
-  redirect("/onboarding/welcome");
+  redirect("/onboarding/profile");
 }
 
 /** Mark the one-time welcome as seen, then enter the community. */

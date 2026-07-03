@@ -49,10 +49,11 @@ export async function getProfile(): Promise<Profile | null> {
 }
 
 /**
- * Gate for pages that need a fully onboarded parent. Redirects:
+ * Gate for pages that need a fully onboarded parent. Redirects (consent first,
+ * so we show our privacy promise before collecting any child details):
  *  - not signed in            → /login
- *  - signed in, no profile    → /onboarding/profile
- *  - profile, not consented   → /onboarding/consent
+ *  - signed in, not consented → /onboarding/consent
+ *  - consented, no alias       → /onboarding/profile
  * Returns the ready profile otherwise.
  */
 export async function requireOnboardedProfile(): Promise<Profile> {
@@ -60,8 +61,8 @@ export async function requireOnboardedProfile(): Promise<Profile> {
   if (!user) redirect("/login");
 
   const profile = await getProfile();
-  if (!profile || !profile.alias) redirect("/onboarding/profile");
-  if (!profile.consentedAt) redirect("/onboarding/consent");
+  if (!profile || !profile.consentedAt) redirect("/onboarding/consent");
+  if (!profile.alias) redirect("/onboarding/profile");
   return profile;
 }
 

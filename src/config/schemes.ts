@@ -42,6 +42,23 @@ export function getScheme(id: string): Scheme | undefined {
   return SCHEMES.find((s) => s.id === id);
 }
 
+/**
+ * Schemes that must be renewed / re-claimed roughly every year. Drives the
+ * annual renewal reminders (a saved scheme nudges the parent ~a year on).
+ * Kept in code rather than the JSON baseline so it's trivial to tune.
+ */
+const ANNUAL_RENEWAL_IDS = new Set<string>([
+  "niramaya-health-insurance", // annual enrolment/renewal
+  "disability-scholarships", // reapply each academic year
+  "section-80dd", // claimed each financial year
+  "section-80u",
+  "section-80ddb",
+]);
+
+export function renewsAnnually(schemeId: string): boolean {
+  return ANNUAL_RENEWAL_IDS.has(schemeId);
+}
+
 export type SchemeQuery = {
   condition?: string | null;
   age?: number | null;
