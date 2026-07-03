@@ -9,15 +9,40 @@ export default function AboutPage() {
   return (
     <InfoPage
       title="About Alongsyd"
-      intro="A companion for the whole special-needs parenting journey — from diagnosis through the years ahead."
+      intro="The story behind Alongsyd — from the two parents who needed it first."
     >
-      <Section title="Why we exist">
+      <Section title="Why Alongsyd exists">
         <p>
-          Raising a child with additional needs comes with questions no one
-          prepares you for — and answers that are scattered across clinics,
-          government offices, WhatsApp groups and hard-won personal experience.
-          Alongsyd brings that lived wisdom into one calm place, so no parent has
-          to start from zero.
+          We&apos;re parents of a boy born in 2011 — he&apos;s fifteen now, and he
+          has autism.
+        </p>
+        <p>
+          When he was diagnosed at just over a year old, we had no idea what
+          autism meant. There was so little guidance. So we did what most parents
+          do: we chased a target. We tried everything we could to make him
+          &ldquo;normal,&rdquo; convinced that with enough effort we could get
+          there.
+        </p>
+        <p>
+          It took us a long time to understand what autism really is — and
+          everything changed the day we did. When we stopped chasing and started
+          learning, when we accepted him as he is and held realistic hopes for
+          what could change and made peace with what may not, our whole lives
+          shifted. He didn&apos;t need fixing. We needed understanding.
+        </p>
+        <p>
+          Like every parent, we still have questions — at every stage, every
+          single day. And so often we&apos;ve wished for a quick way to see what
+          other parents went through: how they handled a certain moment, how they
+          planned ahead, what worked and what didn&apos;t. WhatsApp groups and
+          social media help enormously. But we wanted something focused — a
+          companion that walks the whole journey with you, all the way through to
+          the hardest question of all: who cares for our children after us.
+        </p>
+        <p>
+          Alongsyd is that companion. This is just the beginning. We intend to
+          grow it into a super app — for the super parents who care for these
+          super kids.
         </p>
       </Section>
 
@@ -50,11 +75,11 @@ export default function AboutPage() {
         </p>
       </Section>
 
-      <Section title="Who's behind it">
+      <Section title="Say hello">
         <p>
-          {ORG.name} is a project by {ORG.operator}, built with and for parents.
-          It&apos;s early, and we&apos;re shaping it together with the community —
-          we&apos;d genuinely love to hear from you at{" "}
+          Alongsyd is built with and for parents, under {ORG.operator}. It&apos;s
+          early, and we&apos;re shaping it together with the community — we&apos;d
+          genuinely love to hear from you at{" "}
           <a
             href={`mailto:${ORG.contactEmail}`}
             className="font-medium text-teal-strong"

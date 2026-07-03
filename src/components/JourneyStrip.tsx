@@ -1,44 +1,27 @@
 import { JOURNEY } from "@/config/welcome";
 
 /**
- * The greyed-out roadmap strip. Non-interactive, illustrative only — it signals
- * the whole-life journey (Diagnosis · School years · Adulthood · After-us)
- * without any of those stages being built yet.
+ * The whole-life roadmap: Diagnosis · School years · Adulthood · After-us,
+ * shown as one connected journey Alongsyd grows to support over time — not a
+ * "you are here / coming" tracker. Non-interactive, illustrative only.
  */
 export default function JourneyStrip() {
+  const last = JOURNEY.length - 1;
   return (
     <div aria-hidden className="select-none">
-      <div className="flex items-center justify-between gap-1">
+      <div className="flex items-start justify-between">
         {JOURNEY.map((stage, i) => (
-          <div key={stage.key} className="flex flex-1 items-center">
-            <div className="flex flex-1 flex-col items-center text-center">
-              <span
-                className={`grid h-8 w-8 place-items-center rounded-full text-xs font-semibold ${
-                  stage.status === "here"
-                    ? "bg-teal text-surface"
-                    : "bg-cream text-faint ring-1 ring-line"
-                }`}
-              >
+          <div key={stage.key} className="flex flex-1 flex-col items-center">
+            <div className="flex w-full items-center">
+              <span className={`h-px flex-1 ${i === 0 ? "bg-transparent" : "bg-teal/30"}`} />
+              <span className="grid h-8 w-8 place-items-center rounded-full bg-teal-soft text-xs font-semibold text-teal-strong ring-1 ring-teal/20">
                 {i + 1}
               </span>
-              <span
-                className={`mt-1.5 text-[11px] leading-tight ${
-                  stage.status === "here" ? "font-semibold text-ink" : "text-faint"
-                }`}
-              >
-                {stage.label}
-              </span>
-              <span
-                className={`text-[10px] ${
-                  stage.status === "here" ? "text-teal-strong" : "text-faint/80"
-                }`}
-              >
-                {stage.status === "here" ? "you're here" : "coming"}
-              </span>
+              <span className={`h-px flex-1 ${i === last ? "bg-transparent" : "bg-teal/30"}`} />
             </div>
-            {i < JOURNEY.length - 1 && (
-              <span className="mb-6 h-px w-4 flex-none bg-line" />
-            )}
+            <span className="mt-1.5 px-0.5 text-center text-[11px] leading-tight text-muted">
+              {stage.label}
+            </span>
           </div>
         ))}
       </div>
