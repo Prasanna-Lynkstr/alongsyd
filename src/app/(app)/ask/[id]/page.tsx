@@ -30,7 +30,7 @@ export default async function QuestionPage({
   const answers = await getAnswers(id);
 
   return (
-    <div className="space-y-5">
+    <div className="mx-auto max-w-2xl space-y-5">
       <Link href="/ask" className="text-sm text-muted">
         ← Community
       </Link>

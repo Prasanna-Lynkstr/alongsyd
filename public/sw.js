@@ -1,7 +1,7 @@
 /* Alongsyd service worker — offline-friendly app shell + Web Push.
  * Deliberately simple for the pilot: a network-first strategy that falls back
  * to cache so the installed app still opens if the connection drops. */
-const CACHE = "alongsyd-v2";
+const CACHE = "alongsyd-v3";
 const APP_SHELL = ["/", "/schemes", "/manifest.webmanifest", "/icons/icon-192.png"];
 
 self.addEventListener("install", (event) => {
@@ -30,6 +30,25 @@ self.addEventListener("fetch", (event) => {
   if (url.origin !== self.location.origin) return;
   if (url.pathname.startsWith("/api") || url.pathname.startsWith("/auth")) return;
 
+  // Navigations must honour the server's auth/onboarding redirects. A plain
+  // fetch() of a navigation request (redirect mode "manual") yields an opaque
+  // redirect, and iOS standalone PWAs refuse to render that — the tell-tale
+  // "This page couldn't load." So we follow redirects and hand the browser a
+  // clean redirect it can act on; offline, we fall back to the cached shell.
+  if (request.mode === "navigate") {
+    event.respondWith(
+      fetch(new Request(request, { redirect: "follow" }))
+        .then((response) =>
+          response.redirected ? Response.redirect(response.url, 302) : response,
+        )
+        .catch(() =>
+          caches.match(request).then((cached) => cached || caches.match("/")),
+        ),
+    );
+    return;
+  }
+
+  // Non-navigation same-origin GETs (assets, data): network-first, cache fallback.
   event.respondWith(
     fetch(request)
       .then((response) => {

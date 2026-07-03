@@ -53,7 +53,7 @@ export default async function AskPage({
     : await listQuestions({ condition, topic });
 
   return (
-    <div className="space-y-4">
+    <div className="mx-auto w-full max-w-4xl space-y-4">
       <div>
         <h1 className="text-xl font-semibold text-ink">Ask</h1>
         <p className="text-sm text-muted">
@@ -63,50 +63,57 @@ export default async function AskPage({
 
       <SearchBar initial={q ?? ""} />
 
-      {!searching && <FeedFilters condition={condition} topic={topic} />}
+      {/* On desktop this splits into a feed column + a sticky context rail; on
+          mobile the grid collapses and DOM order restores the phone stack
+          (filters → prompt → feed). */}
+      <div className="gap-8 lg:grid lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start">
+        <aside className="space-y-4 lg:col-start-2 lg:row-start-1 lg:sticky lg:top-8">
+          {!searching && <FeedFilters condition={condition} topic={topic} />}
 
-      {searching && (
-        <SearchFacets q={q!} facets={facets} active={{ condition, city, topic }} />
-      )}
+          {searching && (
+            <SearchFacets q={q!} facets={facets} active={{ condition, city, topic }} />
+          )}
 
-      {!searching && <PushOptIn />}
+          {!searching && <PushOptIn />}
 
-      <Link
-        href="/ask/new"
-        className="flex items-center justify-center gap-2 rounded-2xl border border-dashed border-teal/50 bg-teal-soft/50 py-3.5 font-semibold text-teal-strong"
-      >
-        <span aria-hidden>✏️</span> Ask a question
-      </Link>
+          <Link
+            href="/ask/new"
+            className="flex items-center justify-center gap-2 rounded-2xl border border-dashed border-teal/50 bg-teal-soft/50 py-3.5 font-semibold text-teal-strong"
+          >
+            <span aria-hidden>✏️</span> Ask a question
+          </Link>
+        </aside>
 
-      {searching && (
-        <p className="text-sm text-muted">
-          {questions.length} result{questions.length === 1 ? "" : "s"} for{" "}
-          <b>“{q}”</b>
-        </p>
-      )}
+        <div className="mt-4 space-y-3 lg:col-start-1 lg:row-start-1 lg:mt-0">
+          {searching && (
+            <p className="text-sm text-muted">
+              {questions.length} result{questions.length === 1 ? "" : "s"} for{" "}
+              <b>“{q}”</b>
+            </p>
+          )}
 
-      <div className="space-y-3">
-        {questions.length === 0 ? (
-          searching ? (
-            <EmptyState title="No matches with these filters">
-              Clear a filter above, try different words, or ask it yourself and
-              let the community help.
-            </EmptyState>
+          {questions.length === 0 ? (
+            searching ? (
+              <EmptyState title="No matches with these filters">
+                Clear a filter above, try different words, or ask it yourself and
+                let the community help.
+              </EmptyState>
+            ) : (
+              <EmptyState title="Nothing here with this filter">
+                Clear the filter, or be the first to ask.
+              </EmptyState>
+            )
+          ) : searching ? (
+            // Search results are already bounded/ranked — no pagination needed.
+            questions.map((question) => (
+              <div key={question.id} className="animate-in">
+                <QuestionCard question={question} />
+              </div>
+            ))
           ) : (
-            <EmptyState title="Nothing here with this filter">
-              Clear the filter, or be the first to ask.
-            </EmptyState>
-          )
-        ) : searching ? (
-          // Search results are already bounded/ranked — no pagination needed.
-          questions.map((question) => (
-            <div key={question.id} className="animate-in">
-              <QuestionCard question={question} />
-            </div>
-          ))
-        ) : (
-          <QuestionFeed initial={questions} condition={condition} topic={topic} />
-        )}
+            <QuestionFeed initial={questions} condition={condition} topic={topic} />
+          )}
+        </div>
       </div>
     </div>
   );

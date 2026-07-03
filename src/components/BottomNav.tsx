@@ -11,7 +11,8 @@ const ITEMS: Item[] = [
   { href: "/me", label: "You", icon: "🙂", match: (p) => p.startsWith("/me") },
 ];
 
-/** Fixed bottom tab bar for the signed-in app surfaces. Mobile-first. */
+/** Fixed bottom tab bar for the signed-in app surfaces. Mobile only — the
+ *  desktop counterpart is <SideNav>, so this hides at lg+. */
 export default function BottomNav({ isAdmin = false }: { isAdmin?: boolean }) {
   const pathname = usePathname() ?? "";
   const items = isAdmin
@@ -19,7 +20,7 @@ export default function BottomNav({ isAdmin = false }: { isAdmin?: boolean }) {
     : ITEMS;
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-surface/95 backdrop-blur">
+    <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-surface/95 backdrop-blur lg:hidden">
       <div
         className="mx-auto flex max-w-xl items-stretch justify-around"
         style={{ paddingBottom: "env(safe-area-inset-bottom)" }}

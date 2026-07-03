@@ -6,7 +6,7 @@ export default async function NewQuestionPage() {
   const profile = await requireOnboardedProfile();
 
   return (
-    <div className="space-y-5">
+    <div className="mx-auto max-w-2xl space-y-5">
       <Link href="/ask" className="text-sm text-muted">
         ← Back
       </Link>

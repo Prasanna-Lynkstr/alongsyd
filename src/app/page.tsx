@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import Brand from "@/components/Brand";
 import JourneyStrip from "@/components/JourneyStrip";
+import SiteFooter from "@/components/SiteFooter";
 import { getUser } from "@/engine/auth";
 import { isSupabaseConfigured } from "@/engine/supabase/env";
 
@@ -50,6 +51,8 @@ export default async function Home() {
           </Link>
         </div>
       </div>
+
+      <SiteFooter />
     </main>
   );
 }

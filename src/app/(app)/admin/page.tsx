@@ -21,7 +21,7 @@ export default async function AdminPage() {
 
   if (!SUPABASE_SERVICE_ROLE_KEY) {
     return (
-      <div className="rounded-2xl border border-line bg-surface p-5">
+      <div className="mx-auto max-w-3xl rounded-2xl border border-line bg-surface p-5">
         <h1 className="text-lg font-semibold text-ink">Admin</h1>
         <p className="mt-2 text-sm text-muted">
           Moderation is disabled because{" "}
@@ -53,7 +53,7 @@ export default async function AdminPage() {
     ]);
 
   return (
-    <div className="space-y-8">
+    <div className="mx-auto max-w-3xl space-y-8">
       <div>
         <h1 className="text-xl font-semibold text-ink">Admin</h1>
         <p className="text-sm text-muted">Keep the community safe and helpful.</p>

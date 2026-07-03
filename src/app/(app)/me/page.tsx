@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { requireOnboardedProfile } from "@/engine/auth";
 import {
   ageBandLabel,
@@ -13,7 +14,7 @@ export default async function MePage() {
   const profile = await requireOnboardedProfile();
 
   return (
-    <div className="space-y-6">
+    <div className="mx-auto max-w-2xl space-y-6">
       <div className="flex flex-col items-center pt-4 text-center">
         <span className="grid h-20 w-20 place-items-center rounded-full bg-surface text-4xl shadow-sm ring-1 ring-line">
           {profile.avatar}
@@ -63,6 +64,31 @@ export default async function MePage() {
           conversations in <b>anonymised</b> form to improve Alongsyd — never in a
           way that identifies you or your family.
         </p>
+      </section>
+
+      <section className="rounded-2xl border border-line bg-surface p-4">
+        <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-faint">
+          Legal &amp; help
+        </p>
+        <nav className="divide-y divide-line text-sm">
+          {[
+            { href: "/about", label: "About Alongsyd" },
+            { href: "/privacy", label: "Privacy Policy" },
+            { href: "/terms", label: "Terms of Service" },
+            { href: "/contact", label: "Contact us" },
+          ].map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              className="flex items-center justify-between py-2.5 text-ink first:pt-0 last:pb-0"
+            >
+              {l.label}
+              <span aria-hidden className="text-faint">
+                ›
+              </span>
+            </Link>
+          ))}
+        </nav>
       </section>
 
       <form action={signOut}>
