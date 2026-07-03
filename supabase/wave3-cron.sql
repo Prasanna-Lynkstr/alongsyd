@@ -22,11 +22,18 @@ alter table public.saved_schemes
 create extension if not exists pg_cron;
 create extension if not exists pg_net;
 
--- Idempotent: drop existing schedules before recreating.
-select cron.unschedule('alongsyd-weekly-digest')
-  where exists (select 1 from cron.job where jobname = 'alongsyd-weekly-digest');
-select cron.unschedule('alongsyd-renewal-reminders')
-  where exists (select 1 from cron.job where jobname = 'alongsyd-renewal-reminders');
+-- Idempotent: remove ANY existing Alongsyd schedules first. We loop
+-- cron.unschedule(jobid) (a SECURITY DEFINER function — works even though a
+-- direct DELETE on cron.job is denied to normal roles), because the named
+-- cron.schedule below appends rather than upserts, and cron.unschedule(name)
+-- errors once duplicates exist. Safe when none exist (loops 0 times).
+do $$
+declare j bigint;
+begin
+  for j in select jobid from cron.job where jobname like 'alongsyd-%' loop
+    perform cron.unschedule(j);
+  end loop;
+end $$;
 
 -- Weekly digest — Mondays 09:00 UTC.
 select cron.schedule(
