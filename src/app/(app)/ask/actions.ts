@@ -3,9 +3,10 @@
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/engine/supabase/server";
+import { createAdminClient } from "@/engine/supabase/admin";
 import { deriveTags } from "@/engine/tagging";
 import { embed, toVectorLiteral } from "@/engine/embeddings";
-import { sendPushToUser } from "@/engine/push";
+import { notifyUser } from "@/engine/notify";
 import { FEED_PAGE_SIZE, listQuestions } from "@/engine/queries";
 import type { Question } from "@/engine/types";
 
@@ -112,21 +113,53 @@ export async function postAnswer(formData: FormData) {
   });
   if (error) redirect(`/ask/${questionId}?error=${encodeURIComponent(error.message)}`);
 
-  // Notify the asker that a parent answered (best-effort; never blocks posting,
-  // and we don't ping someone answering their own question).
+  // Notify the asker + everyone following this question (best-effort; never
+  // blocks posting, and we never ping the parent who just answered).
   const { data: question } = await supabase
     .from("questions")
     .select("author_id, title")
     .eq("id", questionId)
     .maybeSingle();
-  if (question?.author_id && question.author_id !== user.id) {
-    await sendPushToUser(question.author_id, {
+
+  let followerIds: string[] = [];
+  try {
+    const admin = createAdminClient();
+    const { data: followers } = await admin
+      .from("question_follows")
+      .select("user_id")
+      .eq("question_id", questionId);
+    followerIds = (followers ?? []).map(
+      (f) => (f as { user_id: string }).user_id,
+    );
+  } catch {
+    // question_follows may not exist pre-migration
+  }
+
+  const asker = question?.author_id ?? null;
+  const notified = new Set<string>();
+  if (asker && asker !== user.id) {
+    notified.add(asker);
+    await notifyUser(asker, {
+      kind: "answer",
       title: "A parent answered your question 💬",
-      body: question.title,
+      body: question?.title ?? "",
       url: `/ask/${questionId}`,
       tag: `q-${questionId}`,
     });
   }
+  await Promise.all(
+    followerIds
+      .filter((uid) => uid !== user.id && !notified.has(uid))
+      .map((uid) =>
+        notifyUser(uid, {
+          kind: "answer",
+          title: "New answer on a question you follow 💬",
+          body: question?.title ?? "",
+          url: `/ask/${questionId}`,
+          tag: `q-${questionId}`,
+        }),
+      ),
+  );
 
   revalidatePath(`/ask/${questionId}`);
   revalidatePath("/ask");
@@ -171,7 +204,8 @@ export async function toggleHelpful(answerId: string, questionId: string) {
         .select("title")
         .eq("id", questionId)
         .maybeSingle();
-      await sendPushToUser(answer.author_id, {
+      await notifyUser(answer.author_id, {
+        kind: "helpful",
         title: "Your answer helped a parent 💚",
         body: q?.title ?? "A parent found your answer helpful.",
         url: `/ask/${questionId}`,

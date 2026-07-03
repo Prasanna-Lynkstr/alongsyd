@@ -87,3 +87,14 @@ export type Report = {
   resolved: boolean;
   createdAt: string;
 };
+
+/** A persisted in-app notification (the inbox record behind a Web Push). */
+export type AppNotification = {
+  id: string;
+  kind: string;
+  title: string;
+  body: string;
+  url: string | null;
+  isRead: boolean;
+  createdAt: string;
+};

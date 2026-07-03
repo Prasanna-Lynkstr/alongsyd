@@ -5,6 +5,7 @@ import {
   listMyAnswers,
   listMyQuestions,
 } from "@/engine/queries";
+import { listNotifications } from "@/engine/notify";
 import {
   ageBandLabel,
   conditionLabel,
@@ -13,15 +14,17 @@ import {
 import { ageToBand } from "@/config/taxonomy";
 import { VerifiedBadge } from "@/components/ui";
 import QuestionCard from "@/components/QuestionCard";
+import NotificationsInbox from "@/components/NotificationsInbox";
 import PushOptIn from "@/components/PushOptIn";
 import { signOut } from "./actions";
 
 export default async function MePage() {
   const profile = await requireOnboardedProfile();
-  const [stats, myQuestions, myAnswers] = await Promise.all([
+  const [stats, myQuestions, myAnswers, notifications] = await Promise.all([
     getContributionStats(profile.id),
     listMyQuestions(profile.id, 5),
     listMyAnswers(profile.id, 5),
+    listNotifications(profile.id, 10),
   ]);
 
   return (
@@ -40,6 +43,8 @@ export default async function MePage() {
           </span>
         )}
       </div>
+
+      <NotificationsInbox initial={notifications} />
 
       <section className="grid grid-cols-3 gap-3">
         <Stat label="Asked" value={stats.asked} />

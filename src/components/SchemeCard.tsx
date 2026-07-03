@@ -4,6 +4,8 @@ import { stateLabel } from "@/config/taxonomy";
 import { AuthorTag, Chip, timeAgo } from "@/components/ui";
 import AddSchemeNote from "@/components/AddSchemeNote";
 import FlagScheme from "@/components/FlagScheme";
+import SaveSchemeButton from "@/components/SaveSchemeButton";
+import SchemeDocChecklist from "@/components/SchemeDocChecklist";
 
 /**
  * One scheme = two clearly separated layers:
@@ -17,21 +19,32 @@ export default function SchemeCard({
   notes,
   state,
   signedIn,
+  saved = false,
+  docChecks = [],
 }: {
   scheme: Scheme;
   notes: SchemeNote[];
   state?: string;
   signedIn: boolean;
+  /** Whether the current parent has bookmarked this scheme. */
+  saved?: boolean;
+  /** Document indices this parent has already ticked off. */
+  docChecks?: number[];
 }) {
   return (
     <article className="overflow-hidden rounded-2xl border border-line bg-surface">
       {/* ---- Official baseline ------------------------------------------- */}
       <div className="border-l-4 border-teal p-5">
-        <div className="mb-2 flex items-center gap-2">
-          <span className="inline-flex items-center gap-1 rounded-full bg-teal-soft px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-teal-strong">
-            ✓ Official baseline
-          </span>
-          <Chip>{scheme.level === "national" ? "National" : "State"}</Chip>
+        <div className="mb-2 flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <span className="inline-flex items-center gap-1 rounded-full bg-teal-soft px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-teal-strong">
+              ✓ Official baseline
+            </span>
+            <Chip>{scheme.level === "national" ? "National" : "State"}</Chip>
+          </div>
+          {signedIn && (
+            <SaveSchemeButton schemeId={scheme.id} initialSaved={saved} />
+          )}
         </div>
 
         <h3 className="text-lg font-semibold text-ink">{scheme.name}</h3>
@@ -78,11 +91,12 @@ export default function SchemeCard({
 
         {scheme.documents.length > 0 && (
           <Section title="Documents you'll likely need">
-            <div className="flex flex-wrap gap-1.5">
-              {scheme.documents.map((d, i) => (
-                <Chip key={i}>{d}</Chip>
-              ))}
-            </div>
+            <SchemeDocChecklist
+              schemeId={scheme.id}
+              documents={scheme.documents}
+              interactive={signedIn}
+              initialChecked={docChecks}
+            />
           </Section>
         )}
 

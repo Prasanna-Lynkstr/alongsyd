@@ -10,11 +10,14 @@ import {
   SCHEMES_LAST_REVIEWED,
   matchSchemes,
 } from "@/config/schemes";
+import type { Scheme } from "@/config/schemes";
 import { conditionLabel, stateLabel } from "@/config/taxonomy";
 import { COUNTRY } from "@/config/country";
 import { isSupabaseConfigured } from "@/engine/supabase/env";
 import { getProfile } from "@/engine/auth";
 import { listSchemeNotes } from "@/engine/queries";
+import { getAllDocChecks, listSavedSchemes } from "@/engine/saved";
+import SaveSchemeButton from "@/components/SaveSchemeButton";
 import type { Profile, SchemeNote } from "@/engine/types";
 
 export const dynamic = "force-dynamic";
@@ -77,6 +80,20 @@ export default async function SchemesPage({
     );
   }
 
+  // Saved schemes + document-checklist progress for the signed-in parent.
+  let savedSchemes: Scheme[] = [];
+  let savedIds = new Set<string>();
+  let docChecks: Record<string, number[]> = {};
+  if (profile) {
+    const [saved, checks] = await Promise.all([
+      listSavedSchemes(profile.id),
+      getAllDocChecks(profile.id),
+    ]);
+    savedSchemes = saved;
+    savedIds = new Set(saved.map((s) => s.id));
+    docChecks = checks;
+  }
+
   return (
     <main className="mx-auto min-h-screen max-w-xl px-4 pb-24">
       {/* Public header */}
@@ -104,6 +121,35 @@ export default async function SchemesPage({
         <p className="mt-4 rounded-xl border border-teal/30 bg-teal-soft/40 px-4 py-2.5 text-sm text-teal-strong">
           ✨ Matched to your child&apos;s profile. Adjust below to explore more.
         </p>
+      )}
+
+      {savedSchemes.length > 0 && (
+        <section className="mt-6 space-y-2">
+          <h2 className="font-semibold text-ink">My schemes to claim</h2>
+          <div className="space-y-2">
+            {savedSchemes.map((s) => {
+              const done = (docChecks[s.id] ?? []).length;
+              const total = s.documents.length;
+              return (
+                <div
+                  key={s.id}
+                  className="flex items-center justify-between gap-3 rounded-2xl border border-line bg-surface p-4"
+                >
+                  <div className="min-w-0">
+                    <p className="truncate text-sm font-medium text-ink">
+                      {s.name}
+                    </p>
+                    <p className="text-xs text-faint">
+                      {s.authority}
+                      {total > 0 ? ` · ${done}/${total} documents ready` : ""}
+                    </p>
+                  </div>
+                  <SaveSchemeButton schemeId={s.id} initialSaved />
+                </div>
+              );
+            })}
+          </div>
+        </section>
       )}
 
       <div className="mt-5">
@@ -141,6 +187,8 @@ export default async function SchemesPage({
                 notes={notesByScheme[scheme.id] ?? []}
                 state={state}
                 signedIn={signedIn}
+                saved={savedIds.has(scheme.id)}
+                docChecks={docChecks[scheme.id] ?? []}
               />
             ))
           )}

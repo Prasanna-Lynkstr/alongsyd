@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { requireOnboardedProfile } from "@/engine/auth";
 import { findRelatedQuestions, getAnswers, getQuestion } from "@/engine/queries";
+import { isFollowingQuestion, isSavedQuestion } from "@/engine/saved";
 import {
   ageBandLabel,
   conditionIcon,
@@ -14,6 +15,7 @@ import HelpfulButton from "@/components/HelpfulButton";
 import ReportButton from "@/components/ReportButton";
 import AnswerComposer from "@/components/AnswerComposer";
 import QuestionCard from "@/components/QuestionCard";
+import QuestionActions from "@/components/QuestionActions";
 import PushOptIn from "@/components/PushOptIn";
 
 export const dynamic = "force-dynamic";
@@ -25,7 +27,7 @@ export default async function QuestionPage({
   params: Promise<{ id: string }>;
   searchParams: Promise<{ posted?: string }>;
 }) {
-  await requireOnboardedProfile();
+  const me = await requireOnboardedProfile();
   const { id } = await params;
   const { posted } = await searchParams;
 
@@ -33,6 +35,10 @@ export default async function QuestionPage({
   if (!question || question.isRemoved) notFound();
 
   const answers = await getAnswers(id);
+  const [following, saved] = await Promise.all([
+    isFollowingQuestion(me.id, id),
+    isSavedQuestion(me.id, id),
+  ]);
   // When nothing's answered yet, don't leave the parent staring at a void —
   // surface similar questions the community has already engaged with.
   const related =
@@ -88,7 +94,12 @@ export default async function QuestionPage({
           <AuthorTag author={question.author} />
           <span className="text-xs text-faint">{timeAgo(question.createdAt)}</span>
         </div>
-        <div className="mt-2">
+        <div className="mt-3 flex items-center justify-between gap-2">
+          <QuestionActions
+            questionId={question.id}
+            initialFollowing={following}
+            initialSaved={saved}
+          />
           <ReportButton targetType="question" targetId={question.id} questionId={question.id} />
         </div>
       </article>
