@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Alongsyd">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3f8f86"/>
+      <stop offset="1" stop-color="#2c6f78"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <!-- a gentle path: two companions walking the same way -->
+  <path d="M120 336 C 200 236, 312 236, 392 176"
+        fill="none" stroke="#e9f3f0" stroke-width="20"
+        stroke-linecap="round" stroke-dasharray="4 34"/>
+  <circle cx="150" cy="316" r="34" fill="#f4c95d"/>
+  <circle cx="362" cy="196" r="34" fill="#f4f7f5"/>
+</svg>

@@ -1,0 +1,460 @@
+{
+  "questions": [
+    {
+      "alias": "PuneMaa",
+      "avatar": "🌻",
+      "condition": "autism",
+      "childAge": 3,
+      "city": "Pune",
+      "state": "MH",
+      "topic": "diagnosis",
+      "title": "Paediatrician says 'wait and watch' but I feel something is off. Should I push for an autism assessment?",
+      "body": "My 3-yr-old barely makes eye contact and still has no words, only points sometimes. Our regular paediatrician keeps saying boys talk late and to wait till he is 4. My gut says we should not wait. Has anyone gone ahead and got an assessment done early, and did it help?",
+      "createdOffsetDays": 34,
+      "answers": [
+        {
+          "alias": "CalmCove",
+          "avatar": "🌊",
+          "verified": true,
+          "body": "Please trust your gut, you know your child best. Early intervention before 5 makes a real difference, so there is nothing to lose by assessing now. In Pune you can get a developmental assessment at KEM Hospital's child development unit, or privately with a developmental paediatrician. Ask for a CARS or ADOS based evaluation rather than a one-line opinion.",
+          "helpedCount": 16,
+          "createdOffsetDays": 33
+        },
+        {
+          "alias": "TwoKitesUp",
+          "avatar": "🪁",
+          "verified": false,
+          "body": "We were in the exact same spot with our son at 2.5. We stopped waiting and it was the best decision. Even if the label takes time, starting speech therapy and play based sessions early helped him so much. You are not overreacting.",
+          "helpedCount": 9,
+          "createdOffsetDays": 30
+        }
+      ]
+    },
+    {
+      "alias": "ChaiAndCalm",
+      "avatar": "🫖",
+      "condition": "adhd",
+      "childAge": 8,
+      "city": "Bengaluru",
+      "state": "KA",
+      "topic": "school-inclusion",
+      "title": "School wants to remove my 8-yr-old with ADHD from class during exams. Is that allowed?",
+      "body": "My 8-yr-old has ADHD and the class teacher says he 'disturbs others' during tests, so they want him to sit alone in the staff room for exams. It feels like punishment, not support. Has anyone dealt with a school like this, and what accommodations should I actually be asking for?",
+      "createdOffsetDays": 27,
+      "answers": [
+        {
+          "alias": "InclusionDidi",
+          "avatar": "🦉",
+          "verified": true,
+          "body": "As a special educator, what your child needs is accommodation, not isolation. Under the RPwD Act 2016 and CBSE guidelines, children with ADHD are entitled to extra time, a separate quiet room with a scribe or invigilator if needed, and reduced distraction seating. Write a formal email to the principal requesting these in writing and attach his diagnosis report. Frame it as 'reasonable accommodation', that phrase carries legal weight.",
+          "helpedCount": 18,
+          "createdOffsetDays": 25
+        },
+        {
+          "alias": "BlrBaba",
+          "avatar": "⛰️",
+          "verified": false,
+          "body": "We faced this too. A small quiet corner in a separate room actually helped our daughter focus, but the key is that a supportive adult must be with her, never alone as a punishment. Ask the school to reframe it as a support room and check if they have a special educator on staff.",
+          "helpedCount": 7,
+          "createdOffsetDays": 22
+        }
+      ]
+    },
+    {
+      "alias": "QuietDawn",
+      "avatar": "🌙",
+      "condition": "down-syndrome",
+      "childAge": 1,
+      "city": "Kochi",
+      "state": "KL",
+      "topic": "therapy",
+      "title": "Newly diagnosed 14-month-old with Down syndrome, feeling overwhelmed. Where do I even start with therapy?",
+      "body": "We got the confirmation last month that our 14-month-old has Down syndrome. I love her completely but I am drowning in advice from relatives and the internet. What therapies actually matter at this age, and how do we not burn out trying to do everything?",
+      "createdOffsetDays": 19,
+      "answers": [
+        {
+          "alias": "SteadyTurtle",
+          "avatar": "🐢",
+          "verified": true,
+          "body": "Congratulations on your daughter, and breathe, you are already doing great by reaching out. At 14 months the two things that matter most are physiotherapy for muscle tone and feeding/oral motor support. In Kochi, the National Institute of Speech and Hearing (NISH) is excellent and government subsidised. You do not need to do everything at once; pick one or two consistent sessions a week and build a play routine at home. Also please get her heart and thyroid checked if not already done, that is standard care.",
+          "helpedCount": 20,
+          "createdOffsetDays": 18
+        },
+        {
+          "alias": "MalluAmma",
+          "avatar": "🍀",
+          "verified": false,
+          "body": "The Down Syndrome Federation of India has a lovely parent WhatsApp community that helped me feel less alone in the early days. Honestly the first year I did too much and burned out. What our son needed most was play, tummy time and us being calm. It gets so much better, I promise.",
+          "helpedCount": 11,
+          "createdOffsetDays": 15
+        }
+      ]
+    },
+    {
+      "alias": "HydHeart",
+      "avatar": "🕊️",
+      "condition": "cerebral-palsy",
+      "childAge": 5,
+      "city": "Hyderabad",
+      "state": "TG",
+      "topic": "daily-living",
+      "title": "How do I make our home more accessible for my 5-yr-old with CP on a tight budget?",
+      "body": "My 5-yr-old has cerebral palsy and is starting to move around more with a walker. Our rented flat has a step at the entrance and a regular Indian bathroom that is slippery. Expensive renovations are not an option right now. What low-cost changes actually made a difference for your family?",
+      "createdOffsetDays": 23,
+      "answers": [
+        {
+          "alias": "RampAndRoll",
+          "avatar": "🧭",
+          "verified": false,
+          "body": "A local carpenter made us a simple wooden ramp for the entrance step for about 800 rupees, way cheaper than any ready-made one. For the bathroom, rubberised anti-slip mats and a plastic commode chair with armrests from Amazon changed everything. Grab bars can be drilled in even in a rental, most landlords are fine if you offer to remove them later.",
+          "helpedCount": 14,
+          "createdOffsetDays": 20
+        },
+        {
+          "alias": "PhysioMaa",
+          "avatar": "🦋",
+          "verified": true,
+          "body": "As a paediatric physiotherapist, small positioning wins matter a lot. A firm cushion or corner seat for floor sitting keeps posture good during play. For the bathroom, a shower chair prevents falls and reduces your back strain too. Keep frequently used things at his level so he practises reaching and independence safely.",
+          "helpedCount": 12,
+          "createdOffsetDays": 19
+        }
+      ]
+    },
+    {
+      "alias": "DilliDost",
+      "avatar": "🐝",
+      "condition": "speech-delay",
+      "childAge": 2,
+      "city": "New Delhi",
+      "state": "DL",
+      "topic": "communication",
+      "title": "Should I stop speaking two languages at home if my 2.5-yr-old has a speech delay?",
+      "body": "My 2.5-yr-old has a speech delay and barely says 5 words. At home we speak Hindi and English, and my in-laws speak Punjabi. Relatives keep saying the confusion of three languages is why she is not talking and we should pick one. Is that true, or is this a myth?",
+      "createdOffsetDays": 16,
+      "answers": [
+        {
+          "alias": "SpeechSetu",
+          "avatar": "🐬",
+          "verified": true,
+          "body": "This is one of the biggest myths I correct as a speech therapist. Multilingual homes do not cause speech delay, children across India grow up with 2-3 languages just fine. What helps is rich, responsive talking in whichever language feels most natural to each person. Narrate your day, pause and wait for her to respond, and use gestures alongside words. Keep the languages, just add more interaction.",
+          "helpedCount": 17,
+          "createdOffsetDays": 14
+        }
+      ]
+    },
+    {
+      "alias": "KolkataKite",
+      "avatar": "🪁",
+      "condition": "learning-disability",
+      "childAge": 10,
+      "city": "Kolkata",
+      "state": "WB",
+      "topic": "school-inclusion",
+      "title": "How do I get a dyslexia certificate for board exam accommodations for my 10-yr-old?",
+      "body": "My 10-yr-old was recently identified with dyslexia by a psychologist. I keep hearing that we need an official certificate to get a scribe and extra time in board exams later. Which authority issues this in West Bengal, and how early should we start the process?",
+      "createdOffsetDays": 21,
+      "answers": [
+        {
+          "alias": "InclusionDidi",
+          "avatar": "🦉",
+          "verified": true,
+          "body": "Start early, the process takes patience. You need a formal Learning Disability certificate from a government-recognised assessment centre, usually a government medical college or a designated hospital with a certified clinical psychologist. In Kolkata, the Institute of Child Health and some government hospitals do these assessments. This certificate lets you claim a scribe, extra time, and exemption from a third language under CBSE/ICSE and WBBSE rules. Keep multiple attested copies, schools will ask every year.",
+          "helpedCount": 15,
+          "createdOffsetDays": 18
+        },
+        {
+          "alias": "BongMa",
+          "avatar": "🌊",
+          "verified": false,
+          "body": "We did this last year. The waiting list at the government centre was long, so book the appointment now even though board exams feel far away. Also ask the psychologist who diagnosed her whether they are on the approved panel, that can save you repeating tests.",
+          "helpedCount": 8,
+          "createdOffsetDays": 16
+        }
+      ]
+    },
+    {
+      "alias": "MumbaiMa",
+      "avatar": "🌊",
+      "condition": "autism",
+      "childAge": 6,
+      "city": "Mumbai",
+      "state": "MH",
+      "topic": "behaviour",
+      "title": "My 6-yr-old with autism has huge meltdowns at crowded places like markets. How do you cope?",
+      "body": "Whenever we go to a crowded market or a wedding, my 6-yr-old with autism gets completely overwhelmed and has a meltdown, sometimes hitting himself. People stare and give unwanted advice about discipline. How do other parents manage outings and the judgement that comes with them?",
+      "createdOffsetDays": 12,
+      "answers": [
+        {
+          "alias": "SensoryScout",
+          "avatar": "🧭",
+          "verified": true,
+          "body": "What you are describing is sensory overload, not misbehaviour, so discipline is not the answer. Noise-cancelling headphones or even simple earplugs help many kids in loud spaces. Prepare him beforehand with pictures of where you are going, keep outings short, and carry a comfort item and a snack. For the meltdown itself, move him to a quieter corner and stay calm rather than reasoning in the moment. You are doing nothing wrong.",
+          "helpedCount": 19,
+          "createdOffsetDays": 11
+        },
+        {
+          "alias": "MumbaiBaba",
+          "avatar": "⛰️",
+          "verified": false,
+          "body": "I keep a small printed card in my wallet that says 'my child has autism, thank you for your patience' and hand it to nosy strangers. It ends the lectures instantly. Also we started with very short trips to the market during off-peak hours and slowly built up. The staring hurts, but your child's safety and calm come first.",
+          "helpedCount": 13,
+          "createdOffsetDays": 9
+        }
+      ]
+    },
+    {
+      "alias": "AhmedabadAai",
+      "avatar": "🌵",
+      "condition": "hearing-impairment",
+      "childAge": 4,
+      "city": "Ahmedabad",
+      "state": "GJ",
+      "topic": "government-schemes",
+      "title": "Is a cochlear implant covered under any government scheme for my 4-yr-old?",
+      "body": "My 4-yr-old has profound hearing loss and the doctor has recommended a cochlear implant, but the cost is far beyond what we can afford. Someone mentioned there is a government scheme that covers it. Can anyone explain how ADIP works and whether we qualify?",
+      "createdOffsetDays": 30,
+      "answers": [
+        {
+          "alias": "SchemeSaathi",
+          "avatar": "🍀",
+          "verified": true,
+          "body": "Yes, the ADIP scheme under the central government covers cochlear implants for eligible children, usually up to 5-6 years of age, done at empanelled hospitals. You will need a disability certificate, an audiology assessment, and income proof, as it is means-tested. Apply through an ALIMCO or empanelled implant centre; in Gujarat, the Civil Hospital in Ahmedabad has done ADIP implants. Start the paperwork soon because age eligibility matters for best outcomes.",
+          "helpedCount": 16,
+          "createdOffsetDays": 28
+        },
+        {
+          "alias": "GujjuMummy",
+          "avatar": "🐝",
+          "verified": false,
+          "body": "We went through ADIP two years ago. The process is slow and involves a lot of running around, so keep photocopies of everything and be patient with the office. After the implant, the mapping and speech therapy that follow are the real work, so factor in regular follow-up visits. It was worth every bit of effort.",
+          "helpedCount": 10,
+          "createdOffsetDays": 24
+        }
+      ]
+    },
+    {
+      "alias": "ChennaiChinna",
+      "avatar": "🐬",
+      "condition": "autism",
+      "childAge": 7,
+      "city": "Chennai",
+      "state": "TN",
+      "topic": "communication",
+      "title": "Is it too late to try AAC or a communication app for my mostly non-verbal 7-yr-old?",
+      "body": "My 7-yr-old with autism is mostly non-verbal and uses a few signs. A friend mentioned AAC devices and picture apps. I worry that giving him a device will make him stop trying to talk. Has anyone started AAC at this age, and did speech improve or stall?",
+      "createdOffsetDays": 14,
+      "answers": [
+        {
+          "alias": "SpeechSetu",
+          "avatar": "🕊️",
+          "verified": true,
+          "body": "It is absolutely not too late, and research is very clear that AAC supports spoken language rather than replacing it. Giving a child a reliable way to communicate reduces frustration and often unlocks more attempts at speech. You can start low-cost with a PECS picture system, or apps like Avaz which was built in India and supports Tamil. Model using it yourself throughout the day, that is the key to it working.",
+          "helpedCount": 18,
+          "createdOffsetDays": 12
+        }
+      ]
+    },
+    {
+      "alias": "JaipurJyot",
+      "avatar": "🌻",
+      "condition": "intellectual-disability",
+      "childAge": 19,
+      "city": "Jaipur",
+      "state": "RJ",
+      "topic": "future-planning",
+      "title": "Setting up a legal guardianship and financial plan for my 19-yr-old. Where do I start?",
+      "body": "My 19-yr-old has an intellectual disability and will need lifelong support. As parents we are getting older and worry constantly about what happens after us. How do we set up legal guardianship and a financial safety net, and has anyone used the National Trust for this?",
+      "createdOffsetDays": 38,
+      "answers": [
+        {
+          "alias": "SteadyTurtle",
+          "avatar": "🐢",
+          "verified": true,
+          "body": "This is the worry every one of us carries, so you are being wise to plan now. Under the National Trust Act you can apply for Legal Guardianship through the Local Level Committee (LLC) in your district collector's office, which is far simpler than a court process. Also look into the National Trust's Niramaya health insurance and their letter-of-intent guidance. For finances, many parents set up a private trust rather than leaving assets directly to the child, and appoint a sibling or trusted person plus a backup guardian.",
+          "helpedCount": 17,
+          "createdOffsetDays": 36
+        },
+        {
+          "alias": "MarwariMa",
+          "avatar": "⛰️",
+          "verified": false,
+          "body": "We set up a special needs trust with help from a lawyer who understood disability law, which was worth the fee. One thing I wish we had done earlier is write a detailed care book about his routine, likes, medications and people he trusts, so future caregivers know him as a person. It gave me real peace of mind.",
+          "helpedCount": 11,
+          "createdOffsetDays": 33
+        }
+      ]
+    },
+    {
+      "alias": "LucknowLata",
+      "avatar": "🫖",
+      "condition": "adhd",
+      "childAge": 11,
+      "city": "Lucknow",
+      "state": "UP",
+      "topic": "self-care",
+      "title": "I am exhausted and short-tempered with my 11-yr-old with ADHD. How do you refill your own cup?",
+      "body": "Between school complaints, homework battles and my 11-yr-old's ADHD energy, I have nothing left by evening and end up snapping at everyone. Then I feel guilty for hours. I know I need to look after myself but I do not even know where to begin. How do other parents actually manage this?",
+      "createdOffsetDays": 8,
+      "answers": [
+        {
+          "alias": "CalmCove",
+          "avatar": "🌙",
+          "verified": false,
+          "body": "First, please be gentle with yourself, snapping when you are this depleted does not make you a bad parent. What helped me was accepting help without guilt, even asking a neighbour or relative to watch him for an hour so I could just walk or sit with chai alone. I also stopped fighting every homework battle and picked only what mattered. You cannot pour from an empty cup, and you matter too.",
+          "helpedCount": 15,
+          "createdOffsetDays": 7
+        },
+        {
+          "alias": "MannKiBaat",
+          "avatar": "🍀",
+          "verified": true,
+          "body": "As a counsellor who works with special-needs families, this burnout is real and very common, not a personal failing. Small non-negotiable pockets of rest work better than waiting for a big break that never comes. Also consider that your child's evening dysregulation may ease with a predictable routine and outdoor physical activity before homework. If the guilt and exhaustion feel constant, please do reach out to a professional, seeking support is strength.",
+          "helpedCount": 13,
+          "createdOffsetDays": 6
+        }
+      ]
+    },
+    {
+      "alias": "GoaGull",
+      "avatar": "🕊️",
+      "condition": "down-syndrome",
+      "childAge": 9,
+      "city": "Panaji",
+      "state": "GA",
+      "topic": "siblings-family",
+      "title": "How do I help my 12-yr-old cope with resentment towards her younger sibling with Down syndrome?",
+      "body": "My younger one, 9, has Down syndrome and naturally needs a lot of our time. Lately my older daughter, 12, has become withdrawn and once said we love her sister more. It broke my heart. How do you give the sibling enough attention and help them process these feelings?",
+      "createdOffsetDays": 25,
+      "answers": [
+        {
+          "alias": "TwoKitesUp",
+          "avatar": "🪁",
+          "verified": false,
+          "body": "This is so common and it does not mean you are failing. What worked for us was carving out a small, protected one-on-one time each week that belongs only to the older child, even just going for ice cream, no talk about the sibling. We also let her voice the hard feelings without correcting her, just listening. She needed to know her world matters too.",
+          "helpedCount": 12,
+          "createdOffsetDays": 22
+        },
+        {
+          "alias": "MannKiBaat",
+          "avatar": "🦉",
+          "verified": true,
+          "body": "Sibling feelings like this are healthy to express, not something to shame. Give her honest, age-appropriate language about her sibling's needs so she does not fill the gaps with guilt or fear. Some cities have sibling support groups where kids meet others in the same boat, which normalises their experience. And do let her have a life outside the caregiving role, she is a child first, not a second parent.",
+          "helpedCount": 14,
+          "createdOffsetDays": 20
+        }
+      ]
+    },
+    {
+      "alias": "BhopalBadal",
+      "avatar": "🐢",
+      "condition": "epilepsy",
+      "childAge": 6,
+      "city": "Bhopal",
+      "state": "MP",
+      "topic": "school-inclusion",
+      "title": "School is scared to admit my 6-yr-old with epilepsy. How did you reassure a nervous school?",
+      "body": "My 6-yr-old has epilepsy that is fairly well controlled with medication. Two schools have quietly refused admission saying they cannot take responsibility if a seizure happens. It feels like discrimination. How did you convince a school to say yes and feel confident?",
+      "createdOffsetDays": 18,
+      "answers": [
+        {
+          "alias": "InclusionDidi",
+          "avatar": "🌻",
+          "verified": true,
+          "body": "Refusing admission purely on the basis of epilepsy goes against the RPwD Act and the RTE Act, so the law is on your side. What often turns a nervous school around is information plus a plan. Give them a simple one-page seizure action plan from your neurologist, offer to train the teachers in what to do (stay calm, keep him safe, time it, call you), and reassure them it is manageable. Once schools see it is a clear protocol and not a mystery, most fears settle.",
+          "helpedCount": 16,
+          "createdOffsetDays": 16
+        },
+        {
+          "alias": "NarmadaMa",
+          "avatar": "🍀",
+          "verified": false,
+          "body": "We faced the same rejections. What finally worked was meeting the principal in person with our doctor's note and staying warm rather than confrontational. We showed them how rarely seizures now happen and exactly what to do. The right school will say yes, and honestly a school that welcomes him is where you want him anyway.",
+          "helpedCount": 9,
+          "createdOffsetDays": 14
+        }
+      ]
+    },
+    {
+      "alias": "NagpurNeel",
+      "avatar": "🦊",
+      "condition": "cerebral-palsy",
+      "childAge": 15,
+      "city": "Nagpur",
+      "state": "MH",
+      "topic": "government-schemes",
+      "title": "How do I renew the disability certificate and UDID for my 15-yr-old with CP?",
+      "body": "My 15-yr-old has cerebral palsy and our old disability certificate has a percentage that no longer matches his needs. I keep hearing about the UDID card now being mandatory for scholarships and travel concessions. How does the renewal and UDID process work, and is it done online?",
+      "createdOffsetDays": 33,
+      "answers": [
+        {
+          "alias": "SchemeSaathi",
+          "avatar": "🧭",
+          "verified": true,
+          "body": "The UDID (Unique Disability ID) is now the standard card and you apply on the swavlambancard.gov.in portal. You register, upload photos and your existing certificate, then get an appointment at a government hospital medical board for assessment. For CP the certificate is usually issued as permanent, so a fresh board assessment can also update the percentage. The UDID unlocks the National Scholarship, railway and bus concessions, and scheme benefits, so it is worth completing. Keep checking the portal status, approvals can take a few weeks.",
+          "helpedCount": 15,
+          "createdOffsetDays": 30
+        }
+      ]
+    },
+    {
+      "alias": "IndoreIsha",
+      "avatar": "🐝",
+      "condition": "visual-impairment",
+      "childAge": 5,
+      "city": "Indore",
+      "state": "MP",
+      "topic": "therapy",
+      "title": "When should my 5-yr-old with low vision start learning Braille, and where in Indore?",
+      "body": "My 5-yr-old has significant low vision and we are trying to plan ahead for school. I am unsure whether she should learn to read print with magnification or start Braille, or both. When is the right time to begin, and are there good resources or centres in Indore?",
+      "createdOffsetDays": 20,
+      "answers": [
+        {
+          "alias": "BrailleBird",
+          "avatar": "🦋",
+          "verified": true,
+          "body": "Age 5 is a lovely time to begin pre-Braille and tactile readiness skills, even if she also uses her residual vision for print. Many children benefit from a dual approach, and an orientation specialist can assess which will be her efficient long-term medium. Look into the National Association for the Blind and government blind schools in Indore, which often run early support and lend Braille kits. Start with fun tactile play like sorting textures and beads, it builds the finger sensitivity Braille needs.",
+          "helpedCount": 14,
+          "createdOffsetDays": 18
+        },
+        {
+          "alias": "MalwaMaa",
+          "avatar": "🌊",
+          "verified": false,
+          "body": "We got a lot of help from a resource teacher through the Sarva Shiksha Abhiyan inclusive education programme, which is free through the government school system. Ask your district education office about a visiting special educator. Starting tactile and mobility skills early made her so much more confident when formal school began.",
+          "helpedCount": 8,
+          "createdOffsetDays": 15
+        }
+      ]
+    },
+    {
+      "alias": "PatnaPari",
+      "avatar": "🪁",
+      "condition": "speech-delay",
+      "childAge": 4,
+      "city": "Patna",
+      "state": "BR",
+      "topic": "therapy",
+      "title": "No speech therapist in our town. What can I do at home for my 4-yr-old's speech delay?",
+      "body": "We live in a smaller town near Patna and the nearest speech therapist is a three-hour journey away, which we can manage only once a month. My 4-yr-old has a speech delay and understands everything but speaks very little. What home activities genuinely help between sessions, and are online sessions any good?",
+      "createdOffsetDays": 10,
+      "answers": [
+        {
+          "alias": "SpeechSetu",
+          "avatar": "🐬",
+          "verified": true,
+          "body": "You can do a huge amount at home, and consistent daily play often matters more than the clinic visit itself. Get down to her eye level, name what she is looking at, and use short simple words she can imitate. Pause expectantly after asking, and reward any attempt, even a sound, with excitement. Online speech therapy works well for many families now, so ask your monthly therapist for a home programme plus a fortnightly video call to keep you on track.",
+          "helpedCount": 16,
+          "createdOffsetDays": 9
+        },
+        {
+          "alias": "BihariBabu",
+          "avatar": "🫖",
+          "verified": false,
+          "body": "Same situation here in our town. We turned everyday chores into talk time, folding clothes, cooking, feeding the goats, naming everything as we went. Rhymes and action songs in our own language also pulled a lot of words out of him. Do not underestimate what you can do just by talking through the day together.",
+          "helpedCount": 10,
+          "createdOffsetDays": 7
+        }
+      ]
+    }
+  ]
+}

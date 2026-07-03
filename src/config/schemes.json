@@ -1,0 +1,516 @@
+{
+  "disclaimer": "This is general guidance compiled from public government sources; rules, amounts and eligibility vary by state and district and change over time, so always confirm the current details with the official authority before you rely on them.",
+  "lastReviewed": "2026-07",
+  "schemes": [
+    {
+      "id": "disability-certificate",
+      "name": "Disability Certificate (Government Medical Board)",
+      "authority": "State Health Department / District Medical Board, under the RPwD Act 2016 (Dept. of Empowerment of Persons with Disabilities)",
+      "level": "national",
+      "summary": "The official proof that your child has a recognised disability. It is the master document that unlocks almost every other scheme, concession and tax benefit, so getting it is usually the first step.",
+      "benefits": [
+        "Legally recognised proof of disability accepted across India",
+        "Gateway to scholarships, pensions, tax deductions and travel concessions",
+        "Records the type of disability and the assessed percentage",
+        "Application, assessment and the certificate itself are free"
+      ],
+      "eligibility": {
+        "conditions": ["*"],
+        "minAge": 0,
+        "maxAge": null,
+        "minDisabilityPercent": null,
+        "notes": "Available for any of the 21 disabilities recognised under the RPwD Act 2016, at any age. A certificate can be issued for any percentage, but most benefits (reservation, scholarships, tax deductions) require a 'benchmark disability' of 40% or more. No income limit."
+      },
+      "claimSteps": [
+        "Register on the UDID portal at swavlambancard.gov.in and fill the disability certificate application (or apply through your District Hospital / CMO office).",
+        "Upload a photo, Aadhaar and address proof; you will be given an appointment with the government Medical Board at the notified hospital.",
+        "Attend the assessment with your child so the specialists can examine and certify the disability and its percentage.",
+        "Collect the disability certificate; a UDID card is then generated and posted to you."
+      ],
+      "documents": [
+        "Aadhaar card of the child (and parent)",
+        "Recent passport-size colour photograph",
+        "Address proof",
+        "Any existing medical / diagnosis reports (e.g. from a paediatrician, psychiatrist or hospital)"
+      ],
+      "officialLink": "https://www.swavlambancard.gov.in/",
+      "appliesToStates": ["*"]
+    },
+    {
+      "id": "udid-card",
+      "name": "UDID Card (Unique Disability ID)",
+      "authority": "Department of Empowerment of Persons with Disabilities (DEPwD), Ministry of Social Justice & Empowerment",
+      "level": "national",
+      "summary": "A single nationwide ID card and number for a person with disability, replacing multiple paper certificates. From June 2024 the UDID number is required for most disability benefits, including railway concessions.",
+      "benefits": [
+        "One card accepted across the whole country for all disability schemes",
+        "Removes the need to carry multiple certificates",
+        "Links your child's disability record to a single national database",
+        "Free to apply for and to receive"
+      ],
+      "eligibility": {
+        "conditions": ["*"],
+        "minAge": 0,
+        "maxAge": null,
+        "minDisabilityPercent": null,
+        "notes": "Any person with a recognised disability of any age and any percentage can get a UDID. It is issued together with, or on the basis of, the disability certificate. No income limit."
+      },
+      "claimSteps": [
+        "Go to swavlambancard.gov.in and click 'Apply for UDID Card'; create a login.",
+        "Fill in personal, disability and identity details and upload your photo, Aadhaar and address proof.",
+        "If you do not already have a disability certificate, you will be sent to the Medical Board for assessment first.",
+        "Track the application online; the e-UDID can be downloaded and the physical PVC card is posted to you."
+      ],
+      "documents": [
+        "Aadhaar card",
+        "Recent colour photograph (15-100 KB)",
+        "Signature image (3-30 KB)",
+        "Address proof",
+        "Disability certificate, if already issued"
+      ],
+      "officialLink": "https://www.swavlambancard.gov.in/",
+      "appliesToStates": ["*"]
+    },
+    {
+      "id": "niramaya-health-insurance",
+      "name": "Niramaya Health Insurance Scheme",
+      "authority": "The National Trust, Department of Empowerment of Persons with Disabilities (DEPwD)",
+      "level": "national",
+      "summary": "A low-cost health insurance scheme of up to Rs 1,00,000 per year designed specifically for people with autism, cerebral palsy, intellectual disability and multiple disabilities. It covers therapies and treatments that ordinary insurance often refuses.",
+      "benefits": [
+        "Health cover of up to Rs 1,00,000 per year per person",
+        "Covers OPD, medicines, diagnostics and corrective surgeries",
+        "Covers therapies such as physiotherapy, speech therapy and occupational therapy",
+        "Low annual premium (concessional / free for BPL families)"
+      ],
+      "eligibility": {
+        "conditions": ["autism", "cerebral-palsy", "intellectual-disability", "down-syndrome", "multiple-disabilities"],
+        "minAge": 0,
+        "maxAge": null,
+        "minDisabilityPercent": null,
+        "notes": "Only for the four disabilities covered by the National Trust Act - autism, cerebral palsy, intellectual disability (which includes conditions such as Down syndrome) and multiple disabilities. The person must have a disability certificate; enrolment/renewal is done each year. Premium is nominal and lower (or nil) for BPL families."
+      },
+      "claimSteps": [
+        "Get a disability certificate confirming one of the four covered conditions.",
+        "Approach a National Trust registered organisation (RO) in your district, or apply online, to enrol.",
+        "Pay the small annual premium and submit the enrolment form with documents.",
+        "Renew every year to keep the cover active, and use the cashless / reimbursement process for treatment."
+      ],
+      "documents": [
+        "Disability certificate",
+        "Aadhaar card / identity proof",
+        "Recent photograph",
+        "BPL card or income proof (to decide the premium band)"
+      ],
+      "officialLink": "https://nationaltrust.nic.in/niramaya/",
+      "appliesToStates": ["*"]
+    },
+    {
+      "id": "national-trust-legal-guardianship",
+      "name": "Legal Guardianship under the National Trust Act",
+      "authority": "Local Level Committee (headed by the District Collector), National Trust, DEPwD",
+      "level": "national",
+      "summary": "A legal way for parents to appoint a guardian for a child or adult with autism, cerebral palsy, intellectual disability or multiple disabilities who cannot fully take care of their own affairs. It gives peace of mind about who will look after your child, especially once they turn 18.",
+      "benefits": [
+        "Legally recognised guardian to make decisions for the person with disability",
+        "Protects the person's property, finances and welfare",
+        "Especially important once the child becomes an adult (18+)",
+        "Applied for locally through the District Collector's committee, without going to court"
+      ],
+      "eligibility": {
+        "conditions": ["autism", "cerebral-palsy", "intellectual-disability", "down-syndrome", "multiple-disabilities"],
+        "minAge": 0,
+        "maxAge": null,
+        "minDisabilityPercent": null,
+        "notes": "Applies to the four National Trust disabilities - autism, cerebral palsy, intellectual disability and multiple disabilities. A parent, relative or registered organisation can apply. Guardianship is most relevant for adults (18+) but can be arranged earlier; no income limit."
+      },
+      "claimSteps": [
+        "Obtain a disability certificate for one of the four covered conditions.",
+        "Get Form A (application for appointment of a guardian) for the Local Level Committee in your district.",
+        "Submit Form A with the proposed guardian's details and supporting documents to the District Collector's office.",
+        "The Local Level Committee reviews the need and appoints the guardian by issuing Form B."
+      ],
+      "documents": [
+        "Disability certificate",
+        "Aadhaar / identity and address proof of the person with disability and the proposed guardian",
+        "Filled Form A",
+        "Consent of the proposed guardian and (where relevant) supporting affidavits"
+      ],
+      "officialLink": "https://nationaltrust.nic.in/guardianship/",
+      "appliesToStates": ["*"]
+    },
+    {
+      "id": "national-trust-disha-early-intervention",
+      "name": "Disha - Early Intervention & School Readiness (National Trust)",
+      "authority": "The National Trust, Department of Empowerment of Persons with Disabilities (DEPwD)",
+      "level": "national",
+      "summary": "A day-care and early intervention programme run through National Trust registered centres for young children with autism, cerebral palsy, intellectual disability or multiple disabilities. Early therapy in the first years can make a big difference to a child's development.",
+      "benefits": [
+        "Early intervention and therapy for young children (from birth up to about 10 years)",
+        "Day-care support and school-readiness activities",
+        "Guidance and training for parents",
+        "Delivered close to home through registered organisations"
+      ],
+      "eligibility": {
+        "conditions": ["autism", "cerebral-palsy", "intellectual-disability", "down-syndrome", "multiple-disabilities"],
+        "minAge": 0,
+        "maxAge": 10,
+        "minDisabilityPercent": null,
+        "notes": "For young children (roughly 0-10 years) with one of the four National Trust disabilities. Delivered through National Trust registered organisations; availability depends on whether a centre operates in your area."
+      },
+      "claimSteps": [
+        "Find a National Trust registered organisation running the Disha programme near you (list on the National Trust website).",
+        "Contact the centre with your child's diagnosis / disability certificate to check availability.",
+        "Complete the centre's enrolment and start the early intervention / day-care sessions.",
+        "Work with the centre on the parent-training and home activities they suggest."
+      ],
+      "documents": [
+        "Disability certificate or diagnosis report",
+        "Child's Aadhaar / birth certificate",
+        "Parent's identity proof",
+        "Recent photograph"
+      ],
+      "officialLink": "https://nationaltrust.nic.in/",
+      "appliesToStates": ["*"]
+    },
+    {
+      "id": "adip-scheme",
+      "name": "ADIP Scheme (Aids & Assistive Devices)",
+      "authority": "Department of Empowerment of Persons with Disabilities (DEPwD), Ministry of Social Justice & Empowerment",
+      "level": "national",
+      "summary": "Provides free or subsidised aids and appliances - such as hearing aids, wheelchairs, corrective footwear, braille kits and communication devices - to people with disabilities who need them.",
+      "benefits": [
+        "Free aids and appliances for families within the income limit (subsidised for others)",
+        "Covers mobility aids, hearing aids, visual aids and other assistive devices",
+        "Fitting and, where relevant, follow-up support",
+        "Devices distributed through ADIP camps and empanelled agencies (e.g. ALIMCO)"
+      ],
+      "eligibility": {
+        "conditions": ["*"],
+        "minAge": 0,
+        "maxAge": null,
+        "minDisabilityPercent": 40,
+        "notes": "Indian citizen of any age with a disability certificate of 40% or more. Total monthly family income should not exceed Rs 30,000 for full free aids. Generally the same device is given again only after 3 years (1 year for children under 12)."
+      },
+      "claimSteps": [
+        "Get the disability certificate and, ideally, a recommendation from a doctor/therapist on the device needed.",
+        "Register for an ADIP camp or approach an empanelled agency (such as ALIMCO or a District Disability Rehabilitation Centre), or apply on the ARJUN/ADIP portal.",
+        "Attend the assessment where the correct aid is identified and measured/fitted.",
+        "Receive the aid or appliance, free or at a subsidy based on your income."
+      ],
+      "documents": [
+        "Disability certificate (40% or more)",
+        "Aadhaar card",
+        "Income certificate (family income within Rs 30,000/month)",
+        "Recent photograph",
+        "Doctor's / therapist's recommendation for the device (if available)"
+      ],
+      "officialLink": "https://depwd.gov.in/en/adip/",
+      "appliesToStates": ["*"]
+    },
+    {
+      "id": "disability-scholarships",
+      "name": "Pre-Matric & Post-Matric Scholarships for Students with Disabilities",
+      "authority": "Department of Empowerment of Persons with Disabilities (DEPwD) via National Scholarship Portal (NSP)",
+      "level": "national",
+      "summary": "Central scholarships that help cover school and college costs for students with disabilities. Pre-Matric supports Classes 9-10 and Post-Matric covers studies after Class 10.",
+      "benefits": [
+        "Financial support for tuition, maintenance and study costs",
+        "Pre-Matric for Classes 9-10; Post-Matric for Class 11 up to postgraduate level",
+        "Extra allowances for students who need a reader, escort or assistive support",
+        "Applied for online, once a year, on the National Scholarship Portal"
+      ],
+      "eligibility": {
+        "conditions": ["*"],
+        "minAge": 0,
+        "maxAge": null,
+        "minDisabilityPercent": 40,
+        "notes": "Student with a disability certificate of 40% or more, studying in a recognised institution. Annual family income limit is generally around Rs 2.5 lakh. Not more than two children of the same parents can benefit at the same time, and it cannot be combined with another scholarship."
+      },
+      "claimSteps": [
+        "Ensure your child has a disability certificate (40% or more) and is enrolled in a recognised school/college.",
+        "Register on the National Scholarship Portal (scholarships.gov.in) when it opens for the academic year (usually mid-year).",
+        "Fill the DEPwD Pre-Matric or Post-Matric scholarship form and upload documents.",
+        "The school/college and department verify the application; the scholarship is paid into the student's bank account."
+      ],
+      "documents": [
+        "Disability certificate (40% or more)",
+        "Proof of admission / bonafide certificate from the institution",
+        "Income certificate from an authorised Revenue Officer",
+        "Aadhaar-linked bank account details",
+        "Previous year's marksheet (for renewal / post-matric)"
+      ],
+      "officialLink": "https://scholarships.gov.in/",
+      "appliesToStates": ["*"]
+    },
+    {
+      "id": "railway-travel-concession",
+      "name": "Indian Railways Concession for Divyangjan",
+      "authority": "Ministry of Railways (Indian Railways)",
+      "level": "national",
+      "summary": "Discounted train fares for people with disabilities, and often for one escort travelling with them, on most Indian Railways trains. A concession ID (linked to UDID) makes booking easier.",
+      "benefits": [
+        "Large discount on train fares in several classes",
+        "Same concession usually extended to one accompanying escort",
+        "Reserved berth quota earmarked for passengers with disabilities",
+        "Online booking once the concession ID / UDID is registered"
+      ],
+      "eligibility": {
+        "conditions": ["*"],
+        "minAge": 0,
+        "maxAge": null,
+        "minDisabilityPercent": 40,
+        "notes": "For persons with disabilities certified at 40% or more (including autism, cerebral palsy, intellectual disability and multiple disabilities). From 1 June 2024 a UDID is required to claim the concession. An escort concession applies where the person cannot travel alone; the exact percentage of discount depends on the disability type and travel class."
+      },
+      "claimSteps": [
+        "Obtain a disability certificate and UDID card.",
+        "Apply for a Railway concession ID card at the Divisional Railway Office (or through the online Divyangjan service), submitting your UDID.",
+        "Once issued, link the concession ID for online booking on IRCTC, or book at the counter.",
+        "Carry the disability certificate / UDID and concession ID while travelling for verification."
+      ],
+      "documents": [
+        "Disability certificate (40% or more)",
+        "UDID card",
+        "Recent photographs",
+        "Filled railway concession application form"
+      ],
+      "officialLink": "https://services.india.gov.in/service/detail/apply-for-divyangjan-card-services-for-railways",
+      "appliesToStates": ["*"]
+    },
+    {
+      "id": "section-80dd",
+      "name": "Income Tax Deduction - Section 80DD (dependant with disability)",
+      "authority": "Income Tax Department, Ministry of Finance",
+      "level": "national",
+      "summary": "A tax deduction for a parent or family member who supports a dependent child (or other dependant) with a disability. It reduces your taxable income by a fixed amount, so you pay less tax.",
+      "benefits": [
+        "Flat deduction of Rs 75,000 for a dependant with 40%-79% disability",
+        "Flat deduction of Rs 1,25,000 for a dependant with severe (80% or more) disability",
+        "A fixed deduction - you do not have to prove the exact amount spent",
+        "Claimed each year while filing your income tax return (old tax regime)"
+      ],
+      "eligibility": {
+        "conditions": ["*"],
+        "minAge": 0,
+        "maxAge": null,
+        "minDisabilityPercent": 40,
+        "notes": "For a resident individual or HUF who has a dependant (such as a child) with a certified disability of 40% or more. The deduction is claimed by the earning family member, not the child. It is available under the old tax regime; a valid disability certificate (Form 10-IA where required) is needed."
+      },
+      "claimSteps": [
+        "Keep a valid disability certificate for the dependant (40% or more), and Form 10-IA where the certifying authority requires it.",
+        "Choose the old tax regime when filing your income tax return.",
+        "Claim the deduction under Section 80DD (Rs 75,000, or Rs 1,25,000 for severe disability) in the return.",
+        "Retain the certificate and proof in case the department asks for it."
+      ],
+      "documents": [
+        "Disability certificate of the dependant (40% or more)",
+        "Form 10-IA (self-declaration/medical certificate) where applicable",
+        "Proof of the taxpayer's relationship to and support of the dependant"
+      ],
+      "officialLink": "https://www.incometax.gov.in/",
+      "appliesToStates": ["*"]
+    },
+    {
+      "id": "section-80u",
+      "name": "Income Tax Deduction - Section 80U (person with disability)",
+      "authority": "Income Tax Department, Ministry of Finance",
+      "level": "national",
+      "summary": "A tax deduction claimed by a taxpayer who themselves has a disability - relevant when your child grows up and starts earning. It lowers their taxable income by a fixed amount.",
+      "benefits": [
+        "Flat deduction of Rs 75,000 for 40%-79% disability",
+        "Flat deduction of Rs 1,25,000 for severe (80% or more) disability",
+        "A fixed deduction that does not depend on expenses incurred",
+        "Claimed by the person with disability while filing their own return (old tax regime)"
+      ],
+      "eligibility": {
+        "conditions": ["*"],
+        "minAge": 0,
+        "maxAge": null,
+        "minDisabilityPercent": 40,
+        "notes": "For a resident individual who is themselves a person with a certified disability of 40% or more. Note: 80U is claimed by the person with disability; a parent supporting a disabled child claims 80DD instead. Available under the old tax regime."
+      },
+      "claimSteps": [
+        "Keep a valid disability certificate (40% or more) in the taxpayer's own name.",
+        "Opt for the old tax regime while filing the income tax return.",
+        "Claim the deduction under Section 80U (Rs 75,000, or Rs 1,25,000 for severe disability).",
+        "Retain the certificate for the department's records."
+      ],
+      "documents": [
+        "Disability certificate in the taxpayer's name (40% or more)",
+        "Form 10-IA where required",
+        "PAN and income details"
+      ],
+      "officialLink": "https://www.incometax.gov.in/",
+      "appliesToStates": ["*"]
+    },
+    {
+      "id": "section-80ddb",
+      "name": "Income Tax Deduction - Section 80DDB (medical treatment of specified diseases)",
+      "authority": "Income Tax Department, Ministry of Finance",
+      "level": "national",
+      "summary": "A tax deduction for money actually spent on treating certain specified serious illnesses - including several neurological conditions - for yourself or a dependant such as your child.",
+      "benefits": [
+        "Deduction of up to Rs 40,000 for actual treatment costs (under 60 years)",
+        "Up to Rs 1,00,000 where the patient is a senior citizen",
+        "Covers specified diseases including some neurological conditions",
+        "Claimed on the actual amount paid, minus any insurance reimbursement"
+      ],
+      "eligibility": {
+        "conditions": ["cerebral-palsy", "epilepsy", "other"],
+        "minAge": 0,
+        "maxAge": null,
+        "minDisabilityPercent": null,
+        "notes": "Available to a resident individual or HUF for treatment of specified diseases for self or a dependant (spouse, children, parents, siblings). The specified list includes certain neurological diseases (e.g. dystonia, motor neuron disease, ataxia, aphasia, Parkinson's) certified at 40% disability - it is disease-based rather than for all disabilities. A prescription/certificate from the relevant specialist is required."
+      },
+      "claimSteps": [
+        "Confirm the condition is on the Section 80DDB specified-diseases list and get a certificate from the required specialist.",
+        "Keep bills/receipts of the actual treatment expenses paid.",
+        "File the income tax return and claim the deduction for the amount paid (less any reimbursement).",
+        "Retain the specialist's certificate and bills for records."
+      ],
+      "documents": [
+        "Prescription / certificate from the specified specialist doctor",
+        "Bills and receipts for the treatment",
+        "Proof of relationship if claiming for a dependant"
+      ],
+      "officialLink": "https://www.incometax.gov.in/",
+      "appliesToStates": ["*"]
+    },
+    {
+      "id": "igndps-disability-pension",
+      "name": "Indira Gandhi National Disability Pension Scheme (IGNDPS)",
+      "authority": "National Social Assistance Programme (NSAP), Ministry of Rural Development (delivered by State governments)",
+      "level": "national",
+      "summary": "A central monthly pension for people with severe disability from Below Poverty Line (BPL) families. Many states add their own top-up on the central amount, so the total received is often higher.",
+      "benefits": [
+        "Central pension of Rs 300 per month (Rs 500 from age 80)",
+        "Most states add a top-up, so the total is often much higher",
+        "Paid directly into the beneficiary's bank account",
+        "Ongoing monthly support for the family"
+      ],
+      "eligibility": {
+        "conditions": ["*"],
+        "minAge": 18,
+        "maxAge": 79,
+        "minDisabilityPercent": 80,
+        "notes": "For persons aged 18-79 with severe/multiple disability of 80% or more, belonging to a Below Poverty Line (BPL) family. From age 80 the person moves to the old-age pension. Amounts and top-ups vary by state; apply through the State social welfare department."
+      },
+      "claimSteps": [
+        "Ensure the person has a disability certificate showing 80% or more and that the family is on the BPL list.",
+        "Apply at the local social welfare office / Gram Panchayat / municipal office, or on the state's pension portal.",
+        "Submit the form with BPL, disability, age and bank documents.",
+        "After verification, the pension is credited monthly to the bank account."
+      ],
+      "documents": [
+        "Disability certificate (80% or more)",
+        "BPL card / income proof",
+        "Aadhaar and age proof",
+        "Aadhaar-linked bank account details"
+      ],
+      "officialLink": "https://nsap.nic.in/",
+      "appliesToStates": ["*"]
+    },
+    {
+      "id": "mh-sanjay-gandhi-niradhar",
+      "name": "Sanjay Gandhi Niradhar Anudan Yojana (Maharashtra)",
+      "authority": "Social Justice & Special Assistance Department, Government of Maharashtra",
+      "level": "state",
+      "summary": "A Maharashtra state pension that gives monthly financial support to destitute and vulnerable people, including persons with disabilities, from low-income families.",
+      "benefits": [
+        "Monthly financial assistance (revised to about Rs 1,500 per month)",
+        "Paid by Direct Benefit Transfer to the bank account",
+        "Covers persons with disabilities among other vulnerable groups",
+        "State-run, applied for at the local tehsil/collector office"
+      ],
+      "eligibility": {
+        "conditions": ["*"],
+        "minAge": 0,
+        "maxAge": 65,
+        "minDisabilityPercent": 40,
+        "notes": "For Maharashtra residents from families on the BPL list or with very low annual family income (around Rs 21,000). A disability certificate from the District Civil Surgeon is required. Amounts and income limits are revised periodically - confirm the current figures locally."
+      },
+      "claimSteps": [
+        "Get a disability certificate from the District Civil Surgeon and gather income/BPL proof.",
+        "Collect and fill the Sanjay Gandhi Niradhar Yojana form at the Tehsildar / Collector office (or via Aaple Sarkar online).",
+        "Submit the form with all documents for verification.",
+        "Once approved, the monthly amount is credited by Direct Benefit Transfer."
+      ],
+      "documents": [
+        "Disability certificate (District Civil Surgeon)",
+        "Proof of Maharashtra residence",
+        "BPL card / income certificate",
+        "Aadhaar and bank account details"
+      ],
+      "officialLink": "https://sjsa.maharashtra.gov.in/en/scheme/sanjay-gandhi-niradhar-anudan-yojana/",
+      "appliesToStates": ["MH"]
+    },
+    {
+      "id": "tn-differently-abled-maintenance-allowance",
+      "name": "Maintenance Allowance for Differently Abled Persons (Tamil Nadu)",
+      "authority": "Department for the Welfare of Differently Abled Persons, Government of Tamil Nadu",
+      "level": "state",
+      "summary": "A Tamil Nadu monthly maintenance allowance for people with disabilities who cannot support themselves, including those with intellectual disability.",
+      "benefits": [
+        "Monthly maintenance allowance of Rs 1,500",
+        "Supports persons with intellectual disability and other severe disabilities",
+        "Paid regularly to help with living costs",
+        "Applied for at the District Differently Abled Welfare Office"
+      ],
+      "eligibility": {
+        "conditions": ["*"],
+        "minAge": 0,
+        "maxAge": null,
+        "minDisabilityPercent": 40,
+        "notes": "Tamil Nadu residents. The allowance is Rs 1,500/month for persons with 40% or more intellectual disability (and certain other conditions), and for severe locomotor disability the threshold is 75% or more. Confirm the exact category and any age/income conditions at your District Differently Abled Welfare Office."
+      },
+      "claimSteps": [
+        "Get a disability certificate from the government medical board.",
+        "Apply at the District Differently Abled Welfare Office with the certificate and residence proof.",
+        "Submit the application for verification by the department.",
+        "On approval, receive the monthly maintenance allowance."
+      ],
+      "documents": [
+        "Disability certificate",
+        "Proof of Tamil Nadu residence",
+        "Aadhaar and bank account details",
+        "Recent photograph"
+      ],
+      "officialLink": "https://www.scd.tn.gov.in/Mintantance_allowance.php",
+      "appliesToStates": ["TN"]
+    },
+    {
+      "id": "dl-financial-assistance-special-needs",
+      "name": "Financial Assistance to Persons with Special Needs (Delhi Disability Pension)",
+      "authority": "Department of Social Welfare, Government of NCT of Delhi",
+      "level": "state",
+      "summary": "A Delhi pension that provides monthly financial assistance to residents with disabilities from low-income families. One of the higher state disability pensions.",
+      "benefits": [
+        "Monthly assistance of Rs 2,500",
+        "Paid electronically into the beneficiary's bank/post office account",
+        "Covers a wide range of disabilities at 40% or more",
+        "Applied for online through the Delhi e-District portal"
+      ],
+      "eligibility": {
+        "conditions": ["*"],
+        "minAge": 0,
+        "maxAge": null,
+        "minDisabilityPercent": 40,
+        "notes": "For residents of Delhi for at least 5 years, with a disability of 40% or more and annual family income below Rs 1,00,000. Must not be drawing a similar pension from another source. A single-operated bank/post office account is required."
+      },
+      "claimSteps": [
+        "Ensure your child/family member has a disability certificate (40% or more) and Delhi residence proof of 5+ years.",
+        "Register and apply on the Delhi e-District portal under the Disability Pension / Financial Assistance scheme.",
+        "Upload disability, residence, income and bank documents.",
+        "Applications are normally decided within about 45 days; the amount is then credited monthly."
+      ],
+      "documents": [
+        "Disability certificate (40% or more)",
+        "Proof of 5 years' residence in Delhi",
+        "Income proof (family income below Rs 1,00,000/year)",
+        "Aadhaar and single-operated bank/post office account details"
+      ],
+      "officialLink": "https://socialwelfare.delhi.gov.in/social/financials-assistance-schemes",
+      "appliesToStates": ["DL"]
+    }
+  ]
+}
