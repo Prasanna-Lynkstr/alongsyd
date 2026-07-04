@@ -90,7 +90,7 @@ export default function SchemeChecker({
         type="submit"
         className="w-full rounded-xl bg-teal py-3 font-semibold text-surface"
       >
-        Show what we might be entitled to
+        See what we qualify for
       </button>
     </form>
   );
