@@ -1,0 +1,74 @@
+<!--
+  Alongsyd — Confirm signup (first sign-in) email
+  Paste the contents of this file into: Supabase Dashboard
+    → Authentication → Emails → "Confirm signup" → Message body (HTML).
+  Suggested subject: "Confirm your email to join Alongsyd"
+  Template variable used: {{ .ConfirmationURL }} (PKCE flow → /auth/callback).
+  Sent to brand-new addresses; the "Magic Link" template handles returning ones.
+-->
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0;padding:0;background-color:#f6f5f1;">
+  <tr>
+    <td align="center" style="padding:32px 16px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:480px;background-color:#ffffff;border:1px solid #e7e4dc;border-radius:16px;">
+        <tr>
+          <td style="padding:32px 32px 8px 32px;">
+            <!-- Wordmark -->
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td style="background-color:#2c6f78;border-radius:10px;width:36px;height:36px;text-align:center;vertical-align:middle;color:#f4c95d;font-family:Georgia,'Times New Roman',serif;font-size:20px;font-weight:bold;line-height:36px;">&bull;</td>
+                <td style="padding-left:10px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:19px;font-weight:600;color:#2a2a28;letter-spacing:-0.2px;">Alongsyd</td>
+              </tr>
+            </table>
+            <p style="margin:6px 0 0 0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:12px;color:#9a9a91;">For every step, and the ones after</p>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:20px 32px 0 32px;">
+            <h1 style="margin:0 0 12px 0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:22px;font-weight:600;color:#2a2a28;line-height:1.3;">Welcome to Alongsyd</h1>
+            <p style="margin:0 0 24px 0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:15px;color:#6f6f68;line-height:1.6;">
+              You're not meant to walk this alone. Confirm your email to finish
+              signing in — open the button below on the same device you started on.
+              It works once and expires shortly.
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td align="center" style="padding:0 32px 8px 32px;">
+            <!--[if mso]>
+            <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="{{ .ConfirmationURL }}" style="height:48px;v-text-anchor:middle;width:260px;" arcsize="25%" strokecolor="#2c6f78" fillcolor="#2c6f78">
+              <w:anchorlock/>
+              <center style="color:#ffffff;font-family:sans-serif;font-size:16px;font-weight:bold;">Confirm &amp; sign in</center>
+            </v:roundrect>
+            <![endif]-->
+            <!--[if !mso]><!-->
+            <a href="{{ .ConfirmationURL }}" style="display:inline-block;background-color:#2c6f78;color:#ffffff;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:16px;font-weight:600;text-decoration:none;padding:14px 32px;border-radius:12px;">Confirm &amp; sign in</a>
+            <!--<![endif]-->
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:24px 32px 0 32px;">
+            <p style="margin:0 0 6px 0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:13px;color:#9a9a91;line-height:1.5;">
+              If the button doesn't work, copy and paste this link into your browser:
+            </p>
+            <p style="margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:13px;line-height:1.5;word-break:break-all;">
+              <a href="{{ .ConfirmationURL }}" style="color:#235a62;text-decoration:underline;">{{ .ConfirmationURL }}</a>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:24px 32px 32px 32px;">
+            <hr style="border:none;border-top:1px solid #e7e4dc;margin:0 0 16px 0;" />
+            <p style="margin:0 0 4px 0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:12px;color:#9a9a91;line-height:1.6;">
+              You received this because this address was entered to join Alongsyd.
+              If it wasn't you, you can safely ignore this email — no account is
+              created and no one can sign in without this link.
+            </p>
+            <p style="margin:12px 0 0 0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:12px;color:#9a9a91;">
+              Alongsyd &middot; A companion for parents raising a child with special needs
+            </p>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
