@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import Brand from "@/components/Brand";
 import JourneyStrip from "@/components/JourneyStrip";
 import SiteFooter from "@/components/SiteFooter";
+import { AUDIENCE, PLANNED_SURFACES } from "@/config/welcome";
 import { getUser } from "@/engine/auth";
 import { isSupabaseConfigured } from "@/engine/supabase/env";
 
@@ -34,7 +35,10 @@ export default async function Home() {
       {/* Hero */}
       <header className="flex flex-col items-center text-center">
         <Brand size="md" href={null} />
-        <h1 className="mt-8 text-3xl font-semibold leading-tight text-ink md:text-4xl">
+        <p className="mt-8 text-[11px] font-semibold uppercase tracking-[0.16em] text-teal-strong/90">
+          {AUDIENCE}
+        </p>
+        <h1 className="mt-2 text-3xl font-semibold leading-tight text-ink md:text-4xl">
           Alongside you,
           <br />
           <span className="text-teal-strong">the whole way.</span>
@@ -58,6 +62,13 @@ export default async function Home() {
             Check benefits — no sign-in →
           </Link>
         </div>
+
+        <p className="mt-4 text-sm text-muted">
+          Already with us?{" "}
+          <Link href="/login" className="font-medium text-teal-strong underline">
+            Sign in
+          </Link>
+        </p>
       </header>
 
       {/* What's live today */}
@@ -90,6 +101,22 @@ export default async function Home() {
           Growing to walk the whole journey — together, over time
         </p>
         <JourneyStrip />
+
+        <div className="mt-5 border-t border-line pt-4">
+          <p className="mb-3 text-center text-[11px] font-medium uppercase tracking-wide text-faint">
+            On the horizon
+          </p>
+          <div className="flex flex-wrap justify-center gap-2">
+            {PLANNED_SURFACES.map((s) => (
+              <span
+                key={s}
+                className="rounded-full border border-line bg-cream px-3 py-1 text-xs text-muted"
+              >
+                {s}
+              </span>
+            ))}
+          </div>
+        </div>
       </section>
 
       <p className="mt-8 text-center text-sm text-muted">

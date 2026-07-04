@@ -5,6 +5,23 @@
 
 export const TAGLINE = "For every step, and the ones after";
 
+/** Who Alongsyd is for — said plainly but warmly. Used as the hero eyebrow so
+ *  a parent knows in one glance this is their place, without a clinical banner. */
+export const AUDIENCE = "For parents raising a child with special needs";
+
+/**
+ * Concrete surfaces on the roadmap — hinted on the landing page so the product
+ * reads as a whole-journey companion, not just a Q&A board. These are the
+ * things a special-needs family actually hunts for, in journey order.
+ * Illustrative direction, not dated promises.
+ */
+export const PLANNED_SURFACES = [
+  "Therapist & clinic directory",
+  "Special-school finder",
+  "Respite & long-term care homes",
+  "Guardianship & after-us planning",
+];
+
 export const WELCOME = {
   heading: "Welcome to Alongsyd",
   lead: "You're not meant to walk this alone.",

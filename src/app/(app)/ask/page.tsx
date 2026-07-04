@@ -10,6 +10,7 @@ import QuestionCard from "@/components/QuestionCard";
 import QuestionFeed from "@/components/QuestionFeed";
 import PushOptIn from "@/components/PushOptIn";
 import InstallPrompt from "@/components/InstallPrompt";
+import HorizonStrip from "@/components/HorizonStrip";
 import { EmptyState } from "@/components/ui";
 
 export const dynamic = "force-dynamic";
@@ -66,9 +67,10 @@ export default async function AskPage({
   return (
     <div className="mx-auto w-full max-w-4xl space-y-4">
       <div>
-        <h1 className="text-xl font-semibold text-ink">Ask</h1>
+        <h1 className="text-xl font-semibold text-ink">Community</h1>
         <p className="text-sm text-muted">
-          Real questions, answered by parents who&apos;ve been there.
+          Ask and answer with parents who&apos;ve been there — one part of the
+          journey Alongsyd is growing to walk with you.
         </p>
       </div>
 
@@ -103,6 +105,8 @@ export default async function AskPage({
           >
             <span aria-hidden>✏️</span> Ask a question
           </Link>
+
+          {!searching && <HorizonStrip />}
         </aside>
 
         <div className="mt-4 space-y-3 lg:col-start-1 lg:row-start-1 lg:mt-0">

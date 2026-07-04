@@ -7,7 +7,7 @@ import Brand from "@/components/Brand";
 type Item = { href: string; label: string; icon: string; match: (p: string) => boolean };
 
 const ITEMS: Item[] = [
-  { href: "/ask", label: "Ask", icon: "💬", match: (p) => p === "/ask" || p.startsWith("/ask/") },
+  { href: "/ask", label: "Community", icon: "💬", match: (p) => p === "/ask" || p.startsWith("/ask/") },
   { href: "/schemes", label: "Benefits", icon: "🗂️", match: (p) => p.startsWith("/schemes") },
   { href: "/me", label: "You", icon: "🙂", match: (p) => p.startsWith("/me") },
 ];
