@@ -4,10 +4,12 @@ import { useEffect, useState } from "react";
 import Brand from "@/components/Brand";
 import { AVATARS, CONDITIONS, STATES } from "@/config/taxonomy";
 import { COUNTRY } from "@/config/country";
+import { ALIAS_SUGGESTIONS } from "@/config/welcome";
 import { saveProfile } from "../actions";
 
 export default function ProfileSetupPage() {
   const [avatar, setAvatar] = useState<string>(AVATARS[0]);
+  const [alias, setAlias] = useState("");
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -59,14 +61,36 @@ export default function ProfileSetupPage() {
           </div>
         </div>
 
-        <Field label="Display alias" hint="e.g. QuietDawn, ChaiAndCalm">
+        <Field
+          label="Display alias"
+          hint="No real names — a humble, fellow-parent handle fits best."
+        >
           <input
             name="alias"
             required
             maxLength={24}
-            placeholder="Pick an alias"
+            value={alias}
+            onChange={(e) => setAlias(e.target.value)}
+            placeholder="Pick an alias, or tap an idea below"
             className="w-full rounded-xl border border-line bg-surface px-4 py-3 outline-none focus:border-teal"
           />
+          <div className="mt-2 flex flex-wrap items-center gap-1.5">
+            <span className="text-xs text-faint">Ideas:</span>
+            {ALIAS_SUGGESTIONS.map((s) => (
+              <button
+                type="button"
+                key={s}
+                onClick={() => setAlias(s)}
+                className={`rounded-full border px-2.5 py-1 text-xs transition ${
+                  alias === s
+                    ? "border-teal bg-teal-soft text-teal-strong"
+                    : "border-line bg-surface text-muted hover:border-teal/50"
+                }`}
+              >
+                {s}
+              </button>
+            ))}
+          </div>
         </Field>
 
         <div className="rounded-xl bg-cream p-4">
