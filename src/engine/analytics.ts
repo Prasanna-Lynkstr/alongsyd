@@ -19,6 +19,29 @@ import {
 
 export type Slice = { key: string; label: string; count: number };
 export type Bucket = { label: string; value: number };
+export type ReportRow = {
+  id: string;
+  targetType: string;
+  targetId: string;
+  reason: string;
+  createdAt: string;
+};
+export type FlagRow = {
+  id: string;
+  scheme: string;
+  state: string | null;
+  note: string;
+  createdAt: string;
+};
+export type ParentRow = {
+  id: string;
+  alias: string;
+  avatar: string;
+  condition: string | null;
+  state: string | null;
+  isVerified: boolean;
+  isAdmin: boolean;
+};
 type Row = Record<string, unknown>;
 
 const DAY = 86_400_000;
@@ -129,7 +152,13 @@ export type PlatformStats = {
     removedQuestions: number;
     removedAnswers: number;
   };
-  moderation: { openReports: number; openFlags: number };
+  moderation: {
+    openReports: number;
+    openFlags: number;
+    reports: ReportRow[];
+    flags: FlagRow[];
+  };
+  parents: ParentRow[];
   roadmap: { surface: string; demand: number; basis: string }[];
 };
 
@@ -151,7 +180,7 @@ export async function getPlatformStats(): Promise<PlatformStats> {
     db
       .from("profiles")
       .select(
-        "id, condition, state, child_age, is_verified, consented_at, onboarded_at, created_at",
+        "id, alias, avatar, condition, state, child_age, is_verified, is_admin, consented_at, onboarded_at, created_at",
       ),
     db
       .from("questions")
@@ -164,8 +193,10 @@ export async function getPlatformStats(): Promise<PlatformStats> {
     db.from("saved_schemes").select("scheme_id, user_id, created_at"),
     db.from("scheme_doc_checks").select("user_id"),
     db.from("scheme_notes").select("id, is_removed, created_at"),
-    db.from("scheme_flags").select("scheme_id, state, resolved, created_at"),
-    db.from("reports").select("resolved"),
+    db
+      .from("scheme_flags")
+      .select("id, scheme_id, state, note, resolved, created_at"),
+    db.from("reports").select("id, target_type, target_id, reason, resolved, created_at"),
     db.from("push_subscriptions").select("user_id"),
     db.from("notifications").select("id", { count: "exact", head: true }),
   ]);
@@ -184,6 +215,7 @@ export async function getPlatformStats(): Promise<PlatformStats> {
   const answers = answersAll.filter((a) => !a.is_removed);
   const liveNotes = notes.filter((n) => !n.is_removed);
   const openFlags = flags.filter((f) => !f.resolved);
+  const openReports = reports.filter((r) => !r.resolved);
 
   const onboarded = profiles.filter((p) => p.onboarded_at);
   const consented = profiles.filter((p) => p.consented_at);
@@ -327,9 +359,41 @@ export async function getPlatformStats(): Promise<PlatformStats> {
       removedAnswers: answersAll.filter((a) => a.is_removed).length,
     },
     moderation: {
-      openReports: reports.filter((r) => !r.resolved).length,
+      openReports: openReports.length,
       openFlags: openFlags.length,
+      reports: openReports.slice(0, 50).map((r) => ({
+        id: String(r.id),
+        targetType: String(r.target_type),
+        targetId: String(r.target_id),
+        reason: iso(r.reason) ?? "",
+        createdAt: iso(r.created_at) ?? "",
+      })),
+      flags: openFlags.slice(0, 50).map((f) => ({
+        id: String(f.id),
+        scheme: f.scheme_id
+          ? (getScheme(String(f.scheme_id))?.name ?? String(f.scheme_id))
+          : "Missing scheme",
+        state: stateLabel(iso(f.state)) || null,
+        note: iso(f.note) ?? "",
+        createdAt: iso(f.created_at) ?? "",
+      })),
     },
+    parents: [...profiles]
+      .sort(
+        (a, b) =>
+          new Date(iso(b.created_at) ?? 0).getTime() -
+          new Date(iso(a.created_at) ?? 0).getTime(),
+      )
+      .slice(0, 30)
+      .map((p) => ({
+        id: String(p.id),
+        alias: iso(p.alias) ?? "",
+        avatar: iso(p.avatar) ?? "🙂",
+        condition: iso(p.condition),
+        state: iso(p.state),
+        isVerified: Boolean(p.is_verified),
+        isAdmin: Boolean(p.is_admin),
+      })),
     roadmap,
   };
 }

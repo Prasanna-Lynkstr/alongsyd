@@ -2,6 +2,7 @@ import Link from "next/link";
 import Brand from "@/components/Brand";
 import { COUNTRY } from "@/config/country";
 import type { Bucket, PlatformStats, Slice } from "@/engine/analytics";
+import Moderation from "./Moderation";
 import { signOutPlatform } from "./actions";
 
 /**
@@ -66,7 +67,7 @@ export default function Dashboard({ stats }: { stats: PlatformStats }) {
         <Panel
           title="Needs a hand"
           hint="Act on these to keep the loop healthy"
-          cta={{ href: "/admin", label: "Moderation queue →" }}
+          cta={{ href: "#moderation", label: "Go to moderation →" }}
         >
           <div className="grid grid-cols-3 gap-2">
             <Mini label="Open reports" value={stats.moderation.openReports} alert={stats.moderation.openReports > 0} />
@@ -125,6 +126,15 @@ export default function Dashboard({ stats }: { stats: PlatformStats }) {
           />
         </div>
       </Panel>
+
+      {/* 6b · Moderation (act, don't just watch) */}
+      <div id="moderation" className="scroll-mt-6">
+        <Moderation
+          reports={stats.moderation.reports}
+          flags={stats.moderation.flags}
+          parents={stats.parents}
+        />
+      </div>
 
       {/* 7 · Roadmap signals */}
       <Panel
