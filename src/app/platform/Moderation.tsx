@@ -2,11 +2,13 @@ import { conditionLabel, stateLabel } from "@/config/taxonomy";
 import { timeAgo } from "@/components/ui";
 import type { FlagRow, ParentRow, ReportRow } from "@/engine/analytics";
 import {
+  moderateDeleteContent,
   moderateRemoveContent,
   moderateResolveFlag,
   moderateResolveReport,
   moderateSetVerified,
 } from "./actions";
+import ConfirmDeleteButton from "./ConfirmDeleteButton";
 
 /**
  * The moderation surface, living inside the owner console so the app owner can
@@ -54,8 +56,19 @@ export default function Moderation({
                     <input type="hidden" name="type" value={r.targetType} />
                     <input type="hidden" name="id" value={r.targetId} />
                     <button className="rounded-lg bg-red-600 px-3 py-1.5 text-xs font-medium text-white">
-                      Remove content
+                      Hide
                     </button>
+                  </form>
+                  <form action={moderateDeleteContent}>
+                    <input type="hidden" name="type" value={r.targetType} />
+                    <input type="hidden" name="id" value={r.targetId} />
+                    <input type="hidden" name="reportId" value={r.id} />
+                    <ConfirmDeleteButton
+                      message={`Permanently delete this ${r.targetType.replace(
+                        "_",
+                        " ",
+                      )}? This can't be undone.`}
+                    />
                   </form>
                   <form action={moderateResolveReport}>
                     <input type="hidden" name="id" value={r.id} />

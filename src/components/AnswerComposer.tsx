@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { ANSWER_GUIDANCE, PLACEHOLDERS, detectPossibleChildName } from "@/engine/moderation";
 import { postAnswer } from "@/app/(app)/ask/actions";
+import SubmitButton from "@/components/SubmitButton";
 
 /** Compose an answer. Shows the supportive-phrasing nudge (guided posting). */
 export default function AnswerComposer({ questionId }: { questionId: string }) {
@@ -39,12 +40,12 @@ export default function AnswerComposer({ questionId }: { questionId: string }) {
           💛 {nameWarning.reason}
         </p>
       )}
-      <button
-        type="submit"
+      <SubmitButton
+        pendingLabel="Sharing…"
         className="w-full rounded-xl bg-teal py-3 font-semibold text-surface"
       >
         Share your answer
-      </button>
+      </SubmitButton>
     </form>
   );
 }

@@ -41,6 +41,18 @@ export async function moderateRemoveContent(formData: FormData): Promise<void> {
   revalidatePath("/platform");
 }
 
+export async function moderateDeleteContent(formData: FormData): Promise<void> {
+  await requirePlatform();
+  await mod.deleteContent(
+    String(formData.get("type") ?? ""),
+    String(formData.get("id") ?? ""),
+  );
+  // A hard-deleted target leaves an orphan report; clear it from the queue too.
+  const reportId = String(formData.get("reportId") ?? "");
+  if (reportId) await mod.resolveReport(reportId);
+  revalidatePath("/platform");
+}
+
 export async function moderateResolveReport(formData: FormData): Promise<void> {
   await requirePlatform();
   await mod.resolveReport(String(formData.get("id") ?? ""));

@@ -42,6 +42,8 @@ export type Question = {
   topic: string | null;
   answerCount: number;
   createdAt: string;
+  /** set when the author has edited the question; null if never edited */
+  editedAt: string | null;
   isRemoved: boolean;
 };
 

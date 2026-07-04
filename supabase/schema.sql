@@ -77,6 +77,8 @@ create table if not exists public.questions (
   answer_count int not null default 0,
   is_removed   boolean not null default false,
   created_at   timestamptz not null default now(),
+  -- set when the author edits their own question (within the edit window)
+  edited_at    timestamptz,
   -- full-text search vector over title + body
   search_tsv   tsvector generated always as (
     setweight(to_tsvector('english', coalesce(title, '')), 'A') ||
@@ -87,6 +89,9 @@ create index if not exists questions_created_idx on public.questions (created_at
 create index if not exists questions_condition_idx on public.questions (condition);
 create index if not exists questions_topic_idx on public.questions (topic);
 create index if not exists questions_tsv_idx on public.questions using gin (search_tsv);
+-- Backfill for existing databases (the create-table above is a no-op once the
+-- table exists): the author-edit timestamp.
+alter table public.questions add column if not exists edited_at timestamptz;
 
 -- ===========================================================================
 -- answers

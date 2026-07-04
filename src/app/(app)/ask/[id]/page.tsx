@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { requireOnboardedProfile } from "@/engine/auth";
 import { findRelatedQuestions, getAnswers, getQuestion } from "@/engine/queries";
 import { isFollowingQuestion, isSavedQuestion } from "@/engine/saved";
+import { withinEditWindow } from "@/config/community";
 import {
   ageBandLabel,
   conditionIcon,
@@ -16,6 +17,7 @@ import ReportButton from "@/components/ReportButton";
 import AnswerComposer from "@/components/AnswerComposer";
 import QuestionCard from "@/components/QuestionCard";
 import QuestionActions from "@/components/QuestionActions";
+import QuestionOwnerActions from "@/components/QuestionOwnerActions";
 import PushOptIn from "@/components/PushOptIn";
 
 export const dynamic = "force-dynamic";
@@ -25,14 +27,20 @@ export default async function QuestionPage({
   searchParams,
 }: {
   params: Promise<{ id: string }>;
-  searchParams: Promise<{ posted?: string }>;
+  searchParams: Promise<{ posted?: string; edited?: string }>;
 }) {
   const me = await requireOnboardedProfile();
   const { id } = await params;
-  const { posted } = await searchParams;
+  const { posted, edited } = await searchParams;
 
   const question = await getQuestion(id);
   if (!question || question.isRemoved) notFound();
+
+  // Owner controls (edit / delete) show only for the author, only inside the
+  // grace window. The server actions re-check both — this is just the gate for
+  // whether to render the affordance at all.
+  const canManage =
+    question.author?.id === me.id && withinEditWindow(question.createdAt);
 
   const answers = await getAnswers(id);
   const [following, saved] = await Promise.all([
@@ -67,6 +75,12 @@ export default async function QuestionPage({
         </div>
       )}
 
+      {edited && (
+        <p className="rounded-xl border border-teal/30 bg-teal-soft/40 px-4 py-2.5 text-sm text-teal-strong">
+          Your changes are saved.
+        </p>
+      )}
+
       {/* Question */}
       <article className="rounded-2xl border border-line bg-surface p-5">
         <div className="flex flex-wrap items-center gap-1.5">
@@ -92,7 +106,10 @@ export default async function QuestionPage({
 
         <div className="mt-4 flex items-center justify-between">
           <AuthorTag author={question.author} />
-          <span className="text-xs text-faint">{timeAgo(question.createdAt)}</span>
+          <span className="text-xs text-faint">
+            {timeAgo(question.createdAt)}
+            {question.editedAt && " · edited"}
+          </span>
         </div>
         <div className="mt-3 flex items-center justify-between gap-2">
           <QuestionActions
@@ -102,6 +119,14 @@ export default async function QuestionPage({
           />
           <ReportButton targetType="question" targetId={question.id} questionId={question.id} />
         </div>
+
+        {canManage && (
+          <QuestionOwnerActions
+            questionId={question.id}
+            title={question.title}
+            body={question.body}
+          />
+        )}
       </article>
 
       {/* Answers */}

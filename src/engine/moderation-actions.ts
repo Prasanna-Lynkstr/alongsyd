@@ -24,6 +24,18 @@ export async function removeContent(type: string, id: string): Promise<void> {
   await createAdminClient().from(table).update({ is_removed: true }).eq("id", id);
 }
 
+/**
+ * Permanently delete content — no undo, no audit row left behind. For a
+ * question this cascades to its answers/votes/follows (FK on delete cascade).
+ * Distinct from `removeContent`, which only hides. Use for true junk /
+ * duplicates the owner won't miss.
+ */
+export async function deleteContent(type: string, id: string): Promise<void> {
+  const table = CONTENT_TABLES[type as ContentType];
+  if (!table || !id) return;
+  await createAdminClient().from(table).delete().eq("id", id);
+}
+
 /** Mark a content report resolved. */
 export async function resolveReport(id: string): Promise<void> {
   if (!id) return;

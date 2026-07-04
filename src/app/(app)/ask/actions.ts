@@ -6,6 +6,7 @@ import { createClient } from "@/engine/supabase/server";
 import { createAdminClient } from "@/engine/supabase/admin";
 import { deriveTags } from "@/engine/tagging";
 import { embed, toVectorLiteral } from "@/engine/embeddings";
+import { withinEditWindow } from "@/config/community";
 import { notifyUser } from "@/engine/notify";
 import { FEED_PAGE_SIZE, listQuestions } from "@/engine/queries";
 import type { Question } from "@/engine/types";
@@ -92,6 +93,74 @@ export async function postQuestion(formData: FormData) {
 
   revalidatePath("/ask");
   redirect(`/ask/${data!.id}?posted=1`);
+}
+
+/**
+ * Load a question the caller is allowed to manage: it must exist, be authored
+ * by the caller, and still be inside the edit window. Returns null otherwise —
+ * the three server actions below all gate on this, so ownership and the 1-hour
+ * limit are enforced in one place (the UI's identical check is only cosmetic).
+ */
+async function loadOwnEditableQuestion(
+  questionId: string,
+): Promise<{ userId: string } | null> {
+  if (!questionId) return null;
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return null;
+
+  const { data: question } = await supabase
+    .from("questions")
+    .select("author_id, created_at")
+    .eq("id", questionId)
+    .maybeSingle();
+
+  if (!question || question.author_id !== user.id) return null;
+  if (!withinEditWindow(question.created_at as string)) return null;
+  return { userId: user.id };
+}
+
+/** Edit your own question — title + body only — within the edit window. */
+export async function editQuestion(formData: FormData) {
+  const questionId = String(formData.get("questionId") ?? "");
+  const gate = await loadOwnEditableQuestion(questionId);
+  if (!gate) redirect(`/ask/${questionId}?error=edit`);
+
+  const title = String(formData.get("title") ?? "").trim();
+  const body = String(formData.get("body") ?? "").trim();
+  if (!title) redirect(`/ask/${questionId}?error=title`);
+
+  // Re-embed so semantic search reflects the new wording. Best-effort: if the
+  // embed service hiccups we keep the existing vector rather than wiping it.
+  const vector = await embed(`${title}\n\n${body}`);
+  const update: Record<string, unknown> = {
+    title,
+    body,
+    edited_at: new Date().toISOString(),
+  };
+  if (vector) update.embedding = toVectorLiteral(vector);
+
+  await createAdminClient().from("questions").update(update).eq("id", questionId);
+
+  revalidatePath(`/ask/${questionId}`);
+  revalidatePath("/ask");
+  redirect(`/ask/${questionId}?edited=1`);
+}
+
+/** Delete your own question — permanent — within the edit window. */
+export async function deleteQuestion(formData: FormData) {
+  const questionId = String(formData.get("questionId") ?? "");
+  const gate = await loadOwnEditableQuestion(questionId);
+  if (!gate) redirect(`/ask/${questionId}?error=delete`);
+
+  // Hard delete: answers, votes and follows cascade off the row (FK on delete
+  // cascade). This is the parent's own question inside the grace window.
+  await createAdminClient().from("questions").delete().eq("id", questionId);
+
+  revalidatePath("/ask");
+  redirect(`/ask?deleted=1`);
 }
 
 /** Post an answer to a question. */

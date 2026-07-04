@@ -4,6 +4,7 @@ import { useState } from "react";
 import { CONDITIONS, TOPICS } from "@/config/taxonomy";
 import { PLACEHOLDERS, detectPossibleChildName } from "@/engine/moderation";
 import { postQuestion } from "@/app/(app)/ask/actions";
+import SubmitButton from "@/components/SubmitButton";
 
 export default function QuestionComposer({
   defaultCondition,
@@ -108,12 +109,12 @@ export default function QuestionComposer({
         them private.
       </p>
 
-      <button
-        type="submit"
+      <SubmitButton
+        pendingLabel="Posting…"
         className="w-full rounded-xl bg-teal py-3.5 font-semibold text-surface"
       >
         Post question
-      </button>
+      </SubmitButton>
     </form>
   );
 }

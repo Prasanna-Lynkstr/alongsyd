@@ -29,6 +29,7 @@ function toQuestion(row: Row): Question {
     topic: (row.topic as string) ?? null,
     answerCount: (row.answer_count as number) ?? 0,
     createdAt: (row.created_at as string) ?? "",
+    editedAt: (row.edited_at as string) ?? null,
     isRemoved: Boolean(row.is_removed),
   };
 }
