@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { requireOnboardedProfile } from "@/engine/auth";
@@ -33,7 +34,15 @@ export default async function QuestionPage({
   const { id } = await params;
   const { posted, edited } = await searchParams;
 
-  const question = await getQuestion(id);
+  // Fetch everything the shell needs in parallel — these are all fast Supabase
+  // reads. The slow bit (semantic "similar questions") is deliberately NOT here;
+  // it streams in via <Suspense> below so it can't hold up the question itself.
+  const [question, answers, following, saved] = await Promise.all([
+    getQuestion(id),
+    getAnswers(id),
+    isFollowingQuestion(me.id, id),
+    isSavedQuestion(me.id, id),
+  ]);
   if (!question || question.isRemoved) notFound();
 
   // Owner controls (edit / delete) show only for the author, only inside the
@@ -41,18 +50,6 @@ export default async function QuestionPage({
   // whether to render the affordance at all.
   const canManage =
     question.author?.id === me.id && withinEditWindow(question.createdAt);
-
-  const answers = await getAnswers(id);
-  const [following, saved] = await Promise.all([
-    isFollowingQuestion(me.id, id),
-    isSavedQuestion(me.id, id),
-  ]);
-  // When nothing's answered yet, don't leave the parent staring at a void —
-  // surface similar questions the community has already engaged with.
-  const related =
-    answers.length === 0
-      ? await findRelatedQuestions(question.title, question.id)
-      : [];
 
   return (
     <div className="mx-auto max-w-2xl space-y-5">
@@ -168,25 +165,54 @@ export default async function QuestionPage({
         ))}
       </section>
 
-      {/* No answers yet → point to questions the community has already tackled. */}
-      {answers.length === 0 && related.length > 0 && (
-        <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-faint">
-            While you wait — similar questions
-          </h2>
-          {related.map((r) => (
-            <QuestionCard key={r.id} question={r} />
-          ))}
-        </section>
-      )}
-
-      {/* Compose */}
+      {/* Compose — the primary action, sits right under the answers. */}
       <section className="space-y-2">
         <h2 className="text-sm font-semibold uppercase tracking-wide text-faint">
           Share what worked for you
         </h2>
         <AnswerComposer questionId={question.id} />
       </section>
+
+      {/* Empty threads: offer similar questions to explore. Streamed via
+          Suspense so the slow semantic search never blocks the question, and
+          placed last + clearly optional so it doesn't compete with answering. */}
+      {answers.length === 0 && (
+        <Suspense fallback={<RelatedSkeleton />}>
+          <RelatedQuestions title={question.title} excludeId={question.id} />
+        </Suspense>
+      )}
+    </div>
+  );
+}
+
+/** Streamed-in "similar questions" for an as-yet-unanswered thread. */
+async function RelatedQuestions({
+  title,
+  excludeId,
+}: {
+  title: string;
+  excludeId: string;
+}) {
+  const related = await findRelatedQuestions(title, excludeId);
+  if (related.length === 0) return null;
+  return (
+    <section className="space-y-3">
+      <h2 className="text-sm font-semibold uppercase tracking-wide text-faint">
+        Not ready to answer? Browse similar questions
+      </h2>
+      {related.map((r) => (
+        <QuestionCard key={r.id} question={r} />
+      ))}
+    </section>
+  );
+}
+
+function RelatedSkeleton() {
+  return (
+    <div className="animate-pulse space-y-3" aria-hidden>
+      <div className="h-4 w-56 rounded bg-line" />
+      <div className="h-20 rounded-2xl border border-line bg-surface" />
+      <div className="h-20 rounded-2xl border border-line bg-surface" />
     </div>
   );
 }
