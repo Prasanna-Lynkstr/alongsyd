@@ -95,7 +95,7 @@ export default async function SchemesPage({
   }
 
   return (
-    <main className="mx-auto min-h-screen max-w-xl px-4 pb-24">
+    <main className="mx-auto min-h-screen w-full max-w-xl px-4 pb-24 lg:max-w-4xl">
       {/* Public header */}
       <header className="flex items-center justify-between py-3">
         <Brand size="sm" withTagline href={signedIn ? "/ask" : null} />
@@ -152,12 +152,17 @@ export default async function SchemesPage({
         </section>
       )}
 
-      <div className="mt-5">
-        <SchemeChecker condition={condition} age={age} state={state} />
-      </div>
+      {/* On desktop this splits into a results column + a sticky filter rail;
+          on mobile the grid collapses and DOM order gives the phone stack
+          (checker → results), matching the /ask feed. */}
+      <div className="mt-5 gap-8 lg:grid lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start">
+        <aside className="lg:col-start-2 lg:row-start-1 lg:sticky lg:top-6">
+          <SchemeChecker condition={condition} age={age} state={state} />
+        </aside>
 
-      {hasQuery && (
-        <section className="mt-6 space-y-4">
+        <div className="mt-6 lg:col-start-1 lg:row-start-1 lg:mt-0">
+          {hasQuery && (
+            <section className="space-y-4">
           <div className="flex flex-wrap items-baseline justify-between gap-2">
             <h2 className="font-semibold text-ink">
               {matches.length} scheme{matches.length === 1 ? "" : "s"} for{" "}
@@ -221,14 +226,16 @@ export default async function SchemesPage({
               </Link>
             </div>
           )}
-        </section>
-      )}
+            </section>
+          )}
 
-      {!hasQuery && (
-        <p className="mt-8 text-center text-sm text-faint">
-          Pick a condition, age, or state above to begin.
-        </p>
-      )}
+          {!hasQuery && (
+            <p className="mt-8 text-center text-sm text-faint">
+              Pick a condition, age, or state to begin.
+            </p>
+          )}
+        </div>
+      </div>
 
       {/* Signed-in parents keep the app tab bar here (no dead-end on mobile). */}
       {signedIn && <BottomNav isAdmin={profile?.isAdmin ?? false} />}
