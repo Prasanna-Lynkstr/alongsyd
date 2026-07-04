@@ -2,6 +2,7 @@ import { conditionLabel, stateLabel } from "@/config/taxonomy";
 import { timeAgo } from "@/components/ui";
 import type { FlagRow, ParentRow, ReportRow } from "@/engine/analytics";
 import {
+  moderateDeleteById,
   moderateDeleteContent,
   moderateRemoveContent,
   moderateResolveFlag,
@@ -107,6 +108,35 @@ export default function Moderation({
             ))
           )}
         </Queue>
+      </div>
+
+      {/* Delete by ID — for junk/duplicates that were never reported. */}
+      <div className="mt-6 rounded-xl border border-line bg-cream/40 p-4">
+        <h3 className="text-xs font-semibold uppercase tracking-wide text-faint">
+          Delete a post by ID
+        </h3>
+        <p className="mt-1 text-xs text-muted">
+          Permanently remove a question or answer that never got reported — e.g.
+          a duplicate. Paste the ID or its /ask/… URL.
+        </p>
+        <form action={moderateDeleteById} className="mt-3 flex flex-wrap items-center gap-2">
+          <select
+            name="type"
+            defaultValue="question"
+            className="rounded-lg border border-line bg-surface px-3 py-1.5 text-xs text-ink outline-none focus:border-teal"
+          >
+            <option value="question">Question</option>
+            <option value="answer">Answer</option>
+            <option value="scheme_note">Scheme note</option>
+          </select>
+          <input
+            name="id"
+            required
+            placeholder="Post ID or /ask/… URL"
+            className="min-w-[220px] flex-1 rounded-lg border border-line bg-surface px-3 py-1.5 text-xs text-ink outline-none focus:border-teal"
+          />
+          <ConfirmDeleteButton message="Permanently delete this content? This can't be undone." />
+        </form>
       </div>
 
       {/* Verify parents */}

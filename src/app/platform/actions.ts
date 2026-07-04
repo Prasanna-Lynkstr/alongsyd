@@ -53,6 +53,18 @@ export async function moderateDeleteContent(formData: FormData): Promise<void> {
   revalidatePath("/platform");
 }
 
+export async function moderateDeleteById(formData: FormData): Promise<void> {
+  await requirePlatform();
+  const type = String(formData.get("type") ?? "");
+  // Accept a bare id or a pasted /ask/<id> URL — pull the UUID out either way.
+  const raw = String(formData.get("id") ?? "");
+  const uuid = raw.match(
+    /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i,
+  );
+  await mod.deleteContent(type, uuid ? uuid[0] : raw.trim());
+  revalidatePath("/platform");
+}
+
 export async function moderateResolveReport(formData: FormData): Promise<void> {
   await requirePlatform();
   await mod.resolveReport(String(formData.get("id") ?? ""));
