@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Brand from "@/components/Brand";
-import BottomNav from "@/components/BottomNav";
+import AppShell from "@/components/AppShell";
 import SchemeChecker from "@/components/SchemeChecker";
 import SchemeCard from "@/components/SchemeCard";
 import FlagScheme from "@/components/FlagScheme";
@@ -94,19 +94,8 @@ export default async function SchemesPage({
     docChecks = checks;
   }
 
-  return (
-    <main className="mx-auto min-h-screen w-full max-w-xl px-4 pb-24 lg:max-w-4xl">
-      {/* Public header */}
-      <header className="flex items-center justify-between py-3">
-        <Brand size="sm" withTagline href={signedIn ? "/ask" : null} />
-        <Link
-          href={signedIn ? "/ask" : "/login"}
-          className="rounded-full border border-line bg-surface px-3.5 py-1.5 text-sm font-medium text-teal-strong"
-        >
-          {signedIn ? "Community →" : "Sign in"}
-        </Link>
-      </header>
-
+  const body = (
+    <>
       <div className="mt-3">
         <h1 className="text-2xl font-semibold text-ink">
           What is your child entitled to?
@@ -236,9 +225,36 @@ export default async function SchemesPage({
           )}
         </div>
       </div>
+    </>
+  );
 
-      {/* Signed-in parents keep the app tab bar here (no dead-end on mobile). */}
-      {signedIn && <BottomNav isAdmin={profile?.isAdmin ?? false} />}
+  // Signed-in parents get the full app chrome (desktop sidebar + mobile tab bar)
+  // with the Benefits tab highlighted; a public visitor keeps the lightweight
+  // header and a single "Sign in" affordance.
+  if (signedIn) {
+    return (
+      <AppShell
+        isAdmin={profile?.isAdmin ?? false}
+        avatar={profile?.avatar ?? "🙂"}
+        alias={profile?.alias || "You"}
+      >
+        <div className="mx-auto w-full max-w-4xl">{body}</div>
+      </AppShell>
+    );
+  }
+
+  return (
+    <main className="mx-auto min-h-screen w-full max-w-xl px-4 pb-24 lg:max-w-4xl">
+      <header className="flex items-center justify-between py-3">
+        <Brand size="sm" withTagline href={null} />
+        <Link
+          href="/login"
+          className="rounded-full border border-line bg-surface px-3.5 py-1.5 text-sm font-medium text-teal-strong"
+        >
+          Sign in
+        </Link>
+      </header>
+      {body}
     </main>
   );
 }
